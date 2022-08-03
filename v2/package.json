@@ -1,20 +1,12 @@
 {
-  "name": "node_exemplo_api",
+  "name": "v1",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "primeiro serviço disponilizado com rotas",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
-  "dependencies": {
-    "express": "^4.18.1"
-  }
+  "license": "ISC"
 }
