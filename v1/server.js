@@ -1,5 +1,5 @@
 const http = require("http"); // posteriomente com express vamos usar import
-const port = 3000; // definição de porta
+const port = 3001; // definição de porta
 
 //definições do servidor - mensagem de retorno quando acessado
 const server = http.createServer((rep, res) => {
