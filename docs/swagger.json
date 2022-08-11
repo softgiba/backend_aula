@@ -1,0 +1,101 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "API do FSLAB",
+      "description": "API para controlar contas e grupos de usuários do FSLAB",
+      "version": "0.0.1",
+      "termsOfService": "http://localhost:3030",
+      "contact": {
+        "name": "FSLAB Manangers",
+        "email": "fslab@fslab.dev",
+        "url": "fslab.dev"
+      },
+      "license": {
+        "name": "Lincença: GPLv3",
+        "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+      }
+    },
+    "externalDocs": {
+      "description": "Documentação detalhada",
+      "url": "https://docs.api.fslab.dev"
+    },
+    "servers": [
+      {
+        "url": "http://edurondon.tplinkdns.com:3030",
+        "description": "API do FSLAB"
+      }
+    ],
+    "paths": {
+      "/grupos": {
+        "get": {
+          "summary": "Recupera todos os grupos",
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "descricao": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/grupos/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "get": {
+          "summary": "Recupera todos um grupo pelo ID",
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "descricao": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Grupo não encontrado",
+              "content": {
+                "application/json": {
+                  "example": "Not Found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }

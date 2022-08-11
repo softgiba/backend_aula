@@ -1,4 +1,4 @@
-// importando express
+// importando express(req, res)
 import express from "express";
 
 //instanciando express
@@ -28,13 +28,13 @@ const usuarios = [
 ]
 
 // Rota vazia
-app.get('/', (rep, res) => {
+app.get('/', (rep, res, next) => {
     res.status(200).send('Bem-vindo ao auth');
 })
 
 // Rotas GET | POST | PUT | DELETE para grupos
 //GET TODOS GRUPOS
-app.get('/grupos', (rep, res) => {
+app.get('/grupos', (req, res) => {
     res.status(200).json(grupos);
 })
 // GET GRUPO POR ID
@@ -72,13 +72,13 @@ app.get('/grupos/:id', (req, res) => {
 
 ////----------------------------------------------------------------------
 
-app.get('/unidades', (rep, res) => {
+app.get('/unidades', (req, res) => {
     res.status(200).json(unidades);
 })
 
 // Rotas GET | POST | PUT | DELETE para UNIDADES
 //GET TODOS UNIDADES
-app.get('/unidades', (rep, res) => {
+app.get('/unidades', (req, res) => {
   res.status(200).json(unidades);
 })
 // GET UNIDADE POR ID
@@ -114,13 +114,13 @@ function buscaUnidade(id) {
 
 
 //-----------------------------------------------------------------------
-app.get('/usuarios', (rep, res) => {
+app.get('/usuarios', (req, res) => {
     res.status(200).json(usuarios);
 })
 
 // Rotas GET | POST | PUT | DELETE para USUÁRIOS
 //GET TODOS USUÁRIOS
-app.get('/usuarios', (rep, res) => {
+app.get('/usuarios', (req, res) => {
   res.status(200).json(usuarios);
 })
 // GET USUÁRIO POR ID
@@ -157,3 +157,4 @@ function buscaUsuario(id) {
 
 // exportando para o server.js fazer uso
 export default app
+

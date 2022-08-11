@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: API do FSLAB
+  description: API para controlar contas e grupos de usuários do FSLAB
+  version: 0.0.1
+  termsOfService: http://localhost:3030
+  contact:
+    name: FSLAB Manangers
+    email: fslab@fslab.dev
+    url: fslab.dev
+  license:
+    name: "Lincença: GPLv3"
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+externalDocs:
+  description: Documentação detalhada
+  url: https://docs.api.fslab.dev
+servers:
+# Pode ter quantos servidores forem necessário (Produção + Teste)
+- url: http://localhost:3030
+  description: API de produção do FSLAB
+- url: http://localhost:3030
+  description: API de teste do FSLAB
+paths:
+  /grupos:
+    get:
+      summary: Recupera todos os grupos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                # type: array
+                # items: 
+                  # type: object
+                  # properties:
+                  #   id:
+                  #     type: integer
+                  #   descricao:
+                  #     type: string
+                  
+                  # usando por conponente
+                  $ref: "#/components/schemas/grupos"
+  /grupos/{id}:
+  # O parâmentro nessa área permitirá utilizá-lo para todos os verbos nesta rota
+    parameters:
+    - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+      
+    get:
+      summary: Recupera um grupo pelo ID 
+   
+   # Lugar possível de colocar o parametro, mas servirá apenas para o verbo get
+    # parameters:
+    # - name: id
+    #   in: path
+    #   schema:
+    #     type: integer
+    #   required: true
+      
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                # usando por conponente
+                $ref: "#/components/schemas/grupos"
+        404:
+          description: Grupo não encontrado
+          content:
+            application/json:
+              example: "Not Found"
+    post:
+      summary: Cria um novo grupo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descricao:
+                  type: string
+      responses:
+        201:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                # usando por conponente
+                $ref: "#/components/schemas/grupos"
+
+security: 
+- auth: []
+
+components:
+  schemas:
+    grupo:
+      type: object
+      properties:
+        id:
+          type: integer
+        descricao:
+          type: string 
+          # Lembrando que string pode ter outros formatos Ex. (format: date-time; format: currency)
+    grupos:
+      type: array
+      items:
+       $ref: "#/components/schemas/grupo"
+       
+  securitySchemes:
+    auth:
+      type: http
+      # tipo Token do portador
+      scheme: bearer   
+      bearerFormat: JWT
