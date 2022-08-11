@@ -44,28 +44,28 @@ app.get('/', (rep, res, next) => {
 
 // Rotas GET | POST | PUT | DELETE para grupos
 //GET TODOS GRUPOS
-app.get('/grupos', (req, res) => {
+app.get('/grupos', (rep, res, next)=> {
     res.status(200).json(grupos);
 })
 // GET GRUPO POR ID
-app.get('/grupos/:id', (req, res) => {
+app.get('/grupos/:id', (rep, res, next)=> {
     let index = buscaGrupo(req.params.id);
     res.json(grupos[index]);
   })
 // POST GRUPO
-  app.post('/grupos', (req, res) => {
+  app.post('/grupos', (rep, res, next)=> {
     grupos.push(req.body); // enviando o corpo da requisição
     res.status(201).send('Grupo cadastrado!') //201 Created 
   })
 // PUT GRUPO POR ID
-  app.put('/grupos/:id', (req, res) => {
+  app.put('/grupos/:id', (rep, res, next)=> {
     let index = buscaGrupo(req.params.id); // passa o paramentro vindo na requisição
     grupos[index].descricao = req.body.descricao; // usa o paramentro para recuparar um dado no corpo da requisição
     res.json(grupos); // devolve todo array
   })
 
 // DELET GRUPO POR ID
-  app.delete('/grupos/:id', (req, res) => {
+  app.delete('/grupos/:id', (rep, res, next)=> {
     let {id} = req.params; 
     let index = buscaGrupo(id); 
     grupos.splice(index, 1); // apaga um elemento conforme o index (poderia apagar mais que 1 se fosse o objetivo) 
@@ -82,34 +82,34 @@ app.get('/grupos/:id', (req, res) => {
 
 ////----------------------------------------------------------------------
 
-app.get('/unidades', (req, res) => {
+app.get('/unidades', (rep, res, next)=> {
     res.status(200).json(unidades);
 })
 
 // Rotas GET | POST | PUT | DELETE para UNIDADES
 //GET TODOS UNIDADES
-app.get('/unidades', (req, res) => {
+app.get('/unidades', (rep, res, next)=> {
   res.status(200).json(unidades);
 })
 // GET UNIDADE POR ID
-app.get('/unidades/:id', (req, res) => {
+app.get('/unidades/:id', (rep, res, next)=> {
   let index = buscaUnidade(req.params.id);
   res.json(unidades[index]);
 })
 // POST UNIDADE
-app.post('/unidades', (req, res) => {
+app.post('/unidades', (rep, res, next)=> {
   unidades.push(req.body); // enviando o corpo da requisição
   res.status(201).send('Unidade cadastrada!') //201 Created 
 })
 // PUT UNIDADE POR ID
-app.put('/unidades/:id', (req, res) => {
+app.put('/unidades/:id', (rep, res, next)=> {
   let index = buscaUnidade(req.params.id); // passa o paramentro vindo na requisição
   unidades[index].descricao = req.body.descricao; // usa o paramentro para recuparar um dado no corpo da requisição
   res.json(unidades); // devolve todo array
 })
 
 // DELETE UNIDADE POR ID
-app.delete('/unidades/:id', (req, res) => {
+app.delete('/unidades/:id', (rep, res, next)=> {
   let {id} = req.params; 
   let index = buscaUnidade(id); 
   unidades.splice(index, 1); // apaga um elemento conforme o index (poderia apagar mais que 1 se fosse o objetivo) 
@@ -124,34 +124,34 @@ function buscaUnidade(id) {
 
 
 //-----------------------------------------------------------------------
-app.get('/usuarios', (req, res) => {
+app.get('/usuarios', (rep, res, next)=> {
     res.status(200).json(usuarios);
 })
 
 // Rotas GET | POST | PUT | DELETE para USUÁRIOS
 //GET TODOS USUÁRIOS
-app.get('/usuarios', (req, res) => {
+app.get('/usuarios', (rep, res, next)=> {
   res.status(200).json(usuarios);
 })
 // GET USUÁRIO POR ID
-app.get('/usuarios/:id', (req, res) => {
+app.get('/usuarios/:id', (rep, res, next)=> {
   let index = buscaUsuario(req.params.id);
   res.json(usuarios[index]);
 })
 // POST USUÁRIO
-app.post('/usuarios', (req, res) => {
+app.post('/usuarios', (rep, res, next)=> {
   usuarios.push(req.body); // enviando o corpo da requisição
   res.status(201).send('Usuário cadastrado!') //201 Created 
 })
 // PUT USUÁRIO POR ID
-app.put('/usuarios/:id', (req, res) => {
+app.put('/usuarios/:id', (rep, res, next)=> {
   let index = buscaUsuario(req.params.id); // passa o paramentro vindo na requisição
   usuarios[index].nome= req.body.nome; // usa o paramentro para recuparar um dado no corpo da requisição
   res.json(usuarios); // devolve todo array
 })
 
 // DELET USUÁRIO POR ID
-app.delete('/v/:id', (req, res) => {
+app.delete('/v/:id', (rep, res, next)=> {
   let {id} = req.params; 
   let index = buscaUsuario(id); 
   usuarios.splice(index, 1); // apaga um elemento conforme o index (poderia apagar mais que 1 se fosse o objetivo) 
