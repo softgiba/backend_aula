@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: API do FSLAB
-  description: API para controlar contas e grupos de usuários do FSLAB
+  title: UserManager
+  description: API para controlar contas e grupos de usuários
   version: 0.0.1
   termsOfService: http://localhost:3030
   contact:
-    name: FSLAB Manangers
+    name: USER Manangers
     email: fslab@fslab.dev
     url: fslab.dev
   license:
@@ -30,16 +30,6 @@ paths:
           content:
             application/json:
               schema:
-                # type: array
-                # items: 
-                  # type: object
-                  # properties:
-                  #   id:
-                  #     type: integer
-                  #   descricao:
-                  #     type: string
-                  
-                  # usando por conponente
                   $ref: "#/components/schemas/grupos"
   /grupos/{id}:
   # O parâmentro nessa área permitirá utilizá-lo para todos os verbos nesta rota
@@ -54,13 +44,6 @@ paths:
       summary: Recupera um grupo pelo ID 
    
    # Lugar possível de colocar o parametro, mas servirá apenas para o verbo get
-    # parameters:
-    # - name: id
-    #   in: path
-    #   schema:
-    #     type: integer
-    #   required: true
-      
       responses:
         200:
           description: Sucesso
@@ -91,7 +74,7 @@ paths:
             application/json:
               schema:
                 # usando por conponente
-                $ref: "#/components/schemas/grupos"
+                $ref: "#/components/schemas/grupo"
 
 security: 
 - auth: []
@@ -103,6 +86,8 @@ components:
       properties:
         id:
           type: integer
+        nome:
+          type: string 
         descricao:
           type: string 
           # Lembrando que string pode ter outros formatos Ex. (format: date-time; format: currency)

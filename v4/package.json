@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "mogoose": "^0.0.1-security",
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
