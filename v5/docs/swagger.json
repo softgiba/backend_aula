@@ -1,96 +1,109 @@
 {
-    "openapi": "3.0.3",
-    "info": {
-      "title": "API do FSLAB",
-      "description": "API para controlar contas e grupos de usuários do FSLAB",
-      "version": "0.0.1",
-      "termsOfService": "http://localhost:3030",
-      "contact": {
-        "name": "FSLAB Manangers",
-        "email": "fslab@fslab.dev",
-        "url": "fslab.dev"
-      },
-      "license": {
-        "name": "Lincença: GPLv3",
-        "url": "https://www.gnu.org/licenses/gpl-3.0.html"
-      }
+  "openapi": "3.0.3",
+  "info": {
+    "title": "UserManager",
+    "description": "API para controlar contas e grupos de usuários",
+    "version": "0.0.1",
+    "termsOfService": "http://localhost:3030",
+    "contact": {
+      "name": "USER Manangers",
+      "email": "fslab@fslab.dev",
+      "url": "fslab.dev"
     },
-    "externalDocs": {
-      "description": "Documentação detalhada",
-      "url": "https://docs.api.fslab.dev"
+    "license": {
+      "name": "Lincença: GPLv3",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+  },
+  "externalDocs": {
+    "description": "Documentação detalhada",
+    "url": "https://docs.api.fslab.dev"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3030",
+      "description": "API de produção do FSLAB"
     },
-    "servers": [
-      {
-        "url": "http://edurondon.tplinkdns.com:3030",
-        "description": "API do FSLAB"
-      }
-    ],
-    "paths": {
-      "/grupos": {
-        "get": {
-          "summary": "Recupera todos os grupos",
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer"
-                        },
-                        "descricao": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
+    {
+      "url": "http://localhost:3030",
+      "description": "API de teste do FSLAB"
+    }
+  ],
+  "paths": {
+    "/grupos": {
+      "get": {
+        "summary": "Recupera todos os grupos",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/grupos"
                 }
               }
             }
           }
         }
-      },
-      "/grupos/{id}": {
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "integer"
-            },
-            "required": true
+      }
+    },
+    "/grupos/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "integer"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Recupera um grupo pelo ID",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/grupos"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Grupo não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not Found"
+              }
+            }
           }
-        ],
-        "get": {
-          "summary": "Recupera todos um grupo pelo ID",
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "integer"
-                      },
-                      "descricao": {
-                        "type": "string"
-                      }
-                    }
+        }
+      },
+      "post": {
+        "summary": "Cria um novo grupo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "descricao": {
+                    "type": "string"
                   }
                 }
               }
-            },
-            "404": {
-              "description": "Grupo não encontrado",
-              "content": {
-                "application/json": {
-                  "example": "Not Found"
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/grupo"
                 }
               }
             }
@@ -98,4 +111,41 @@
         }
       }
     }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "components": {
+    "schemas": {
+      "grupo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          }
+        }
+      },
+      "grupos": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/grupo"
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   }
+}

@@ -9,54 +9,53 @@ info:
     email: fslab@fslab.dev
     url: fslab.dev
   license:
-    name: "Lincença: GPLv3"
+    name: 'Lincença: GPLv3'
     url: https://www.gnu.org/licenses/gpl-3.0.html
 externalDocs:
   description: Documentação detalhada
   url: https://docs.api.fslab.dev
 servers:
-# Pode ter quantos servidores forem necessário (Produção + Teste)
-- url: http://localhost:3030
-  description: API de produção do FSLAB
-- url: http://localhost:3030
-  description: API de teste do FSLAB
+  - url: http://localhost:3030
+    description: API de produção do FSLAB
+  - url: http://localhost:3030
+    description: API de teste do FSLAB
 paths:
   /grupos:
     get:
       summary: Recupera todos os grupos
       responses:
-        200:
+        '200':
           description: Sucesso
           content:
             application/json:
               schema:
-                  $ref: "#/components/schemas/grupos"
+                $ref: '#/components/schemas/grupos'
+        '404':
+          description: Nenhum grupo encontrado
+          content:
+            application/json:
+              example: Not Found
   /grupos/{id}:
-  # O parâmentro nessa área permitirá utilizá-lo para todos os verbos nesta rota
     parameters:
-    - name: id
-      in: path
-      schema:
-        type: integer
-      required: true
-      
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
     get:
-      summary: Recupera um grupo pelo ID 
-   
-   # Lugar possível de colocar o parametro, mas servirá apenas para o verbo get
+      summary: Recupera um grupo pelo ID
       responses:
-        200:
+        '200':
           description: Sucesso
           content:
             application/json:
               schema:
-                # usando por conponente
-                $ref: "#/components/schemas/grupos"
-        404:
+                $ref: '#/components/schemas/grupo'
+        '404':
           description: Grupo não encontrado
           content:
             application/json:
-              example: "Not Found"
+              example: Not Found
     post:
       summary: Cria um novo grupo
       requestBody:
@@ -68,17 +67,60 @@ paths:
                 descricao:
                   type: string
       responses:
-        201:
-          description: "Sucesso"
+        '201':
+          description: Sucesso
           content:
             application/json:
               schema:
-                # usando por conponente
-                $ref: "#/components/schemas/grupo"
+                $ref: '#/components/schemas/grupo'
+        '404':
+          description: Grupo não encontrado
+          content:
+            application/json:
+              example: Not Found
+        '409':
+          description: Grupo já existe
+          content:
+            application/json:
+              example: Conflict    
+    put:
+      summary: Recupera um grupo pelo ID
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/grupos'
+        '204':
+          description: Grupo não encontrado
+          content:
+            application/json:
+              example: No Content
+        '404':
+          description: Grupo não encontrado
+          content:
+            application/json:
+              example: Not Found
+    delete:
+      summary: Recupera um grupo pelo ID
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/grupos'
+        '404':
+          description: Grupo não encontrado
+          content:
+            application/json:
+              example: Not Found              
 
-security: 
-- auth: []
-
+              
+security:
+  - auth: []
+  
 components:
   schemas:
     grupo:
@@ -87,18 +129,17 @@ components:
         id:
           type: integer
         nome:
-          type: string 
+          type: string
         descricao:
-          type: string 
-          # Lembrando que string pode ter outros formatos Ex. (format: date-time; format: currency)
+          type: string
+
     grupos:
       type: array
       items:
-       $ref: "#/components/schemas/grupo"
-       
+        $ref: '#/components/schemas/grupo'
+        
   securitySchemes:
     auth:
       type: http
-      # tipo Token do portador
-      scheme: bearer   
+      scheme: bearer
       bearerFormat: JWT

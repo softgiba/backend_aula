@@ -2,6 +2,7 @@
 import express from "express";
 import db from "./config/dbConect.js";
 import routes from "./routes/index.js";
+import swaggerUi from 'swagger-ui-express';
 
 // estabelecendo e testando a conexão
 db.on("error", console.log.bind(console, "Conexão com o banco falhou!"));
@@ -14,6 +15,7 @@ const app = express();
 
 // habilitando o uso de json pelo express
 app.use(express.json());
+
 
 // Passando para o arquivo de rotas o app, que envia junto uma instância do express
 routes(app);
