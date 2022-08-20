@@ -11,6 +11,9 @@ info:
   license:
     name: 'Lincença: GPLv3'
     url: https://www.gnu.org/licenses/gpl-3.0.html
+tags:
+  - name: Grupos
+    description: Operações para grupos
 externalDocs:
   description: Documentação detalhada
   url: https://docs.api.fslab.dev
@@ -35,27 +38,6 @@ paths:
           content:
             application/json:
               example: Not Found
-  /grupos/{id}:
-    parameters:
-      - name: id
-        in: path
-        schema:
-          type: integer
-        required: true
-    get:
-      summary: Recupera um grupo pelo ID
-      responses:
-        '200':
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/grupo'
-        '404':
-          description: Grupo não encontrado
-          content:
-            application/json:
-              example: Not Found
     post:
       summary: Cria um novo grupo
       requestBody:
@@ -64,8 +46,12 @@ paths:
             schema:
               type: object
               properties:
+                nome:
+                  type: string
                 descricao:
                   type: string
+                ativo:
+                  type: boolean
       responses:
         '201':
           description: Sucesso
@@ -83,7 +69,16 @@ paths:
           content:
             application/json:
               example: Conflict    
-    put:
+
+  /grupos/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+        
+    get:
       summary: Recupera um grupo pelo ID
       responses:
         '200':
@@ -91,7 +86,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/grupos'
+                $ref: '#/components/schemas/grupo'
+        '404':
+          description: Grupo não encontrado
+          content:
+            application/json:
+              example: Not Found
+
+    put:
+      summary: Atualiza um grupo pelo ID
+      requestBody:
+        description: Atualiza um grupo pelo ID
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/grupo_put'
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/grupo'
         '204':
           description: Grupo não encontrado
           content:
@@ -102,22 +118,21 @@ paths:
           content:
             application/json:
               example: Not Found
+    
     delete:
-      summary: Recupera um grupo pelo ID
+      summary: Apagar um grupo pelo ID
       responses:
         '200':
           description: Sucesso
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/grupos'
+              example: Success
         '404':
           description: Grupo não encontrado
           content:
             application/json:
               example: Not Found              
 
-              
 security:
   - auth: []
   
@@ -137,7 +152,15 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/grupo'
-        
+    
+    grupo_put:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+          
   securitySchemes:
     auth:
       type: http
