@@ -15,6 +15,7 @@ const routes = (app) => {
         unidades,
         rotas,
         usuarios
+
     )
 }
 
