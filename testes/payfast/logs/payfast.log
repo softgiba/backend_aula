@@ -1,0 +1,3 @@
+{"level":"info","message":"consultando pagamento: 80","timestamp":"2016-09-01T15:18:07.128Z"}
+{"level":"info","message":"::1 - - [01/Sep/2016:15:18:07 +0000] \"GET /pagamentos/pagamento/80 HTTP/1.1\" 200 154\n","timestamp":"2016-09-01T15:18:07.167Z"}
+{"level":"info","message":"::1 - - [02/Sep/2016:01:24:59 +0000] \"POST /correios/calculo-prazo HTTP/1.1\" 200 162\n","timestamp":"2016-09-02T01:24:59.628Z"}
