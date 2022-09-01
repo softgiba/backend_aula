@@ -1,3 +1,4 @@
 node_modules
 mongoData
 src/config/dbConect.js
+.env

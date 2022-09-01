@@ -3,6 +3,17 @@ import UnidadeController from "../controllers/UnidadeController.js";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /unidades:
+ *   get:
+ *     description: Get all books
+ *     responses:
+ *       200:
+ *         description: Success
+ * 
+ */
+
 router
   .get("/unidades", UnidadeController.listarUnidades)
   .get("/unidades/:id", UnidadeController.listarUnidadePorId)

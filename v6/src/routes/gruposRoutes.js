@@ -1,17 +1,18 @@
-/**
- * @openapi
- * /:
- *   get:
- *     description: Welcome to swagger-jsdoc!
- *     responses:
- *       200:
- *         description: Returns a mysterious string.
- */
-
 import express from "express";
 import GrupoController from "../controllers/GrupoController.js";
 
 const router = express.Router();
+
+/**
+ * @swagger
+ * /grupos:
+ *   get:
+ *     description: Get all books
+ *     responses:
+ *       200:
+ *         description: Success
+ * 
+ */
 
 router
   .get("/grupos", GrupoController.listarGrupos)

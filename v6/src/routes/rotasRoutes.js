@@ -3,6 +3,17 @@ import RotaController from "../controllers/RotaController.js";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /rotas:
+ *   get:
+ *     description: Get all books
+ *     responses:
+ *       200:
+ *         description: Success
+ * 
+ */
+
 router
   .get("/rotas", RotaController.listarRotas)
   .get("/rotas/:id", RotaController.listarRotaPorId)

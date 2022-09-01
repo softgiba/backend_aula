@@ -3,6 +3,17 @@ import UsuarioController from "../controllers/UsuarioController.js";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /usuarios:
+ *   get:
+ *     description: Get all books
+ *     responses:
+ *       200:
+ *         description: Success
+ * 
+ */
+
 router
   .get("/usuarios", UsuarioController.listarUsuarios)
   .get("/usuarios/busca", UsuarioController.listarUsuarioPorNome)
