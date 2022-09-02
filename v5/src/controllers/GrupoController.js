@@ -6,6 +6,7 @@ class GrupoController {
     grupos.find()
       .populate('unidade', 'nome')
       .populate('rota', 'nome')
+      .populate('usuario', 'nome')
       .exec((err, grupos) => {
           res.status(200).json(grupos)
     })
@@ -15,7 +16,7 @@ class GrupoController {
     const id = req.params.id;
     grupos.findById(id)
       .populate('unidade', 'nome')
-      .populate('rota', 'nome', 'rota')
+      .populate('rota', 'nome')
       .exec((err, grupos) => {
       if (err) {
         res.status(400).send({ message: `${err.message} - Id do grupo não localizado.` })

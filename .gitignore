@@ -1,4 +1,46 @@
+<<<<<<< HEAD
 v6-integracao
 testes
 .env
 
+=======
+# root/
+v6-integracao/
+testes/
+.env
+
+# v1
+/v2/node_modules
+
+# v2 
+/v2/node_modules
+
+# v3 
+/v3/node_modules
+
+# v4 
+/v4/node_modules
+
+# v5 
+/v5/node_modules
+/v5/mongoData
+/v5/src/config/dbConect.js
+
+# v6 
+/v6/node_modules
+/v6/mongoData
+/v6/src/config/dbConect.js
+/v6/.env
+
+# v7 
+/v7/node_modules
+/v7/mongoData
+/v7/src/config/dbConect.js
+/v7/.env
+
+# v8 
+/v8/node_modules
+/v8/mongoData
+/v8/src/config/dbConect.js
+/v8/.env
+>>>>>>> main

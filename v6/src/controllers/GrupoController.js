@@ -4,8 +4,9 @@ class GrupoController {
 
   static listarGrupos = (req, res) => {
     grupos.find()
-      .populate('unidade', 'nome')
-      .populate('rota', 'nome')
+      .populate('unidade', ['nome', 'descricao', 'ativo'])
+      .populate('usuario', ['nome', 'email', 'ativo'])
+      .populate('rota', ['rota', 'verbos', 'ativo'])
       .exec((err, grupos) => {
           res.status(200).json(grupos)
     })
@@ -14,8 +15,9 @@ class GrupoController {
   static listarGrupoPorId = (req, res) => {
     const id = req.params.id;
     grupos.findById(id)
-      .populate('unidade', 'nome')
-      .populate('rota', 'nome', 'rota')
+      .populate('unidade', ['nome', 'descricao', 'ativo'])
+      .populate('usuario', ['nome', 'email', 'ativo'])
+      .populate('rota', ['rota', 'verbos', 'ativo'])
       .exec((err, grupos) => {
       if (err) {
         res.status(400).send({ message: `${err.message} - Id do grupo não localizado.` })

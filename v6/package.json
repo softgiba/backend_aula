@@ -15,6 +15,7 @@
     "cross-fetch": "^3.1.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
+    "intellisense": "^0.0.1",
     "mongoose": "^6.2.6",
     "node-fetch": "^3.2.10",
     "swagger-jsdoc": "^6.2.5",

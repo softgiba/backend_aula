@@ -4,8 +4,9 @@ class UsuarioController {
 
   static listarUsuarios = (req, res) => {
     usuarios.find()
-    .populate('unidade', 'nome')
-      // .populate('rota')
+      .populate('unidade', ['nome', 'descricao', 'ativo'])
+      .populate('grupo', ['nome', 'ativo'])
+      .populate('rota', ['rota', 'verbos', 'ativo'])
       .populate({ path: 'rota', select: 'nome'})
       .populate('grupo', 'nome')
       .exec((err, usuarios) => {
@@ -16,9 +17,9 @@ class UsuarioController {
   static listarUsuarioPorId = (req, res) => {
     const id = req.params.id;
     usuarios.findById(id)
-      .populate('unidade', 'nome')
-      .populate('rota', 'nome', 'rota')
-      .populate('grupo', 'nome')
+    .populate('unidade', ['nome', 'descricao', 'ativo'])
+    .populate('grupo', ['nome', 'ativo'])
+    .populate('rota', ['rota', 'verbos', 'ativo'])
       .exec((err, usuarios) => {
       if (err) {
         res.status(400).send({ message: `${err.message} - Id do usuario não localizado.` })

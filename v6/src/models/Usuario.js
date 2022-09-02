@@ -10,8 +10,8 @@ const usuarioSchema = new mongoose.Schema(
         diretorio_foto: {type: String, trim: true},
         ativo: {type: Boolean, required: true},
 
-        unidade: [{type: mongoose.Schema.Types.ObjectId, ref: 'unidades', required: true}],
-        rota: [{type: mongoose.Schema.Types.ObjectId, ref: 'rotas', required: true}],
+        unidade: [{type: mongoose.Schema.Types.ObjectId, ref: 'unidades'}],
+        rota: [{type: mongoose.Schema.Types.ObjectId, ref: 'rotas'}],
         grupo: [{type: mongoose.Schema.Types.ObjectId, ref: 'grupos'}]
     }
 );
