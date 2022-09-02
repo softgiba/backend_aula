@@ -3,7 +3,7 @@ info:
   title: UserManager
   description: API para controlar contas e grupos de usuários
   version: 0.0.1
-  termsOfService: http://localhost:3030
+  termsOfService: http://localhost:3031s
   contact:
     name: USER Manangers
     email: fslab@fslab.dev
@@ -18,9 +18,9 @@ externalDocs:
   description: Documentação detalhada
   url: https://docs.api.fslab.dev
 servers:
-  - url: http://localhost:3030
+  - url: http://localhost:3031
     description: API de produção do FSLAB
-  - url: http://localhost:3030
+  - url: http://localhost:3031
     description: API de teste do FSLAB
 paths:
   /grupos:

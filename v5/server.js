@@ -8,7 +8,8 @@ import YAML from 'yamljs';
 const swaggerDocument = YAML.load('./docs/swagger.yml'); //Usando YAML
 
 // definição de porta condicional do proxy ou na 3000
-const port = process.env.PORT || 3030; 
+// const port = process.env.PORT || 3031; 
+const port = 3031; 
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 

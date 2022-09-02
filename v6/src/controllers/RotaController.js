@@ -1,11 +1,10 @@
 import rotas from "../models/Rota.js";
 
 class RotaController {
-
+  
   static listarRotas = (req, res) => {
     rotas.find((err, rotas) => {
-      // res.status(200).json(rotas)
-
+      res.status(200).json(rotas)
       if (err) {
         res.status(404).send({ message: `${err.message} - falha ao carregar dados da rota.` })
       } else {
@@ -16,8 +15,7 @@ class RotaController {
 
   static listarRotaPorId = (req, res) => {
     const id = req.params.id;
-
-    rotas.findById(id, (err, rotas) => {
+    rotas.findById(id).exec((err, rotas) => {
       if (err) {
         res.status(400).send({ message: `${err.message} - Id do rota não localizada.` })
       } else {

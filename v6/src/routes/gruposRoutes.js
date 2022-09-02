@@ -5,14 +5,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /grupos:
- *   get:
- *     description: Get all books
- *     responses:
- *       200:
- *         description: Success
- * 
- */
+ * paths:
+ *  /grupos:
+ *    get:
+ *      tags:
+ *      - grupos
+ *      responses:
+ *        200:
+ *          description: Successo
+ *          content:
+ *            application/json:
+ *              schema:
+ *                grupo:
+ *                  type: object
+ *                  properties:
+ *                    id:
+ *                      type: integer
+ *                    nome:
+ *                      type: string
+ *                    descricao:
+ *                      type: string
+ *        404:
+ *          description: Nenhum grupo encontrado
+ *          content:
+ *            application/json:
+ *               example: Not Found
+*/
+
 
 router
   .get("/grupos", GrupoController.listarGrupos)
