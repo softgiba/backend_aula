@@ -12,6 +12,18 @@ class GrupoController {
     })
   }
 
+  static listarGruposPorNome = (req, res) => {
+    const nome = req.query.nome
+    grupos.find({'nome': nome}, {}, (err, grupos) => {
+      if (err) {
+        res.status(400).send({ message: `${err.message} - Não encontrado.` })
+      } else {
+        res.status(200).send(grupos);
+      }
+    })
+  }
+
+
   static listarGrupoPorId = (req, res) => {
     const id = req.params.id;
     grupos.findById(id)

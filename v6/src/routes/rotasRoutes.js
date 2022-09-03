@@ -16,6 +16,7 @@ const router = express.Router();
 
 router
   .get("/rotas", RotaController.listarRotas)
+  .get("/rotas/busca", RotaController.listarRotasPorNome)
   .get("/rotas/:id", RotaController.listarRotaPorId)
   .post("/rotas", RotaController.cadastrarRota)
   .put("/rotas/:id", RotaController.atualizarRota)

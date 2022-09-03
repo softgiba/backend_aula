@@ -14,6 +14,17 @@ class UnidadeController {
     })
   }
 
+  static listarUnidadesPorNome = (req, res) => {
+    const nome = req.query.nome
+    unidades.find({'nome': nome}, {}, (err, unidades) => {
+      if (err) {
+        res.status(400).send({ message: `${err.message} - Não encontrado.` })
+      } else {
+        res.status(200).send(unidades);
+      }
+    })
+  }
+
   static listarUnidadePorId = (req, res) => {
     const id = req.params.id;
 

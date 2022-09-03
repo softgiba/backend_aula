@@ -16,6 +16,7 @@ const router = express.Router();
 
 router
   .get("/unidades", UnidadeController.listarUnidades)
+  .get("/unidades/busca", UnidadeController.listarUnidadesPorNome)
   .get("/unidades/:id", UnidadeController.listarUnidadePorId)
   .post("/unidades", UnidadeController.cadastrarUnidade)
   .put("/unidades/:id", UnidadeController.atualizarUnidade)

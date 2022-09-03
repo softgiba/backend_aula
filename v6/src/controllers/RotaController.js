@@ -12,6 +12,17 @@ class RotaController {
     })
   }
 
+  static listarRotasPorNome = (req, res) => {
+    const nome = req.query.nome
+    rotas.find({'nome': nome}, {}, (err, rotas) => {
+      if (err) {
+        res.status(400).send({ message: `${err.message} - Não encontrado.` })
+      } else {
+        res.status(200).send(rotas);
+      }
+    })
+  }
+
   static listarRotaPorId = (req, res) => {
     const id = req.params.id;
     rotas.findById(id).exec((err, rotas) => {
