@@ -4,7 +4,6 @@ class RotaController {
   
   static listarRotas = (req, res) => {
     rotas.find((err, rotas) => {
-      res.status(200).json(rotas)
       if (err) {
         res.status(404).send({ message: `${err.message} - falha ao carregar dados da rota.` })
       } else {
