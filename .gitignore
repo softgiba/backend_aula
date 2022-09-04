@@ -5,7 +5,7 @@ testes/
 .env
 
 # v1
-/v2/node_modules
+
 
 # v2 
 /v2/node_modules

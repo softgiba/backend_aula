@@ -2,12 +2,12 @@ import grupos from "../models/Grupo.js";
 
 class GrupoController {
 
-  static listarGrupos = (req, res) => {
-    grupos.find()
-      .populate('unidade', ['nome', 'descricao', 'ativo'])
-      .populate('usuario', ['nome', 'email', 'ativo'])
-      .populate('rota', ['rota', 'verbos', 'ativo'])
-      .exec((err, grupos) => {
+  static listarGrupos = async (req, res) => {
+    await grupos.find()
+          .populate('unidade', ['nome', 'descricao', 'ativo'])
+          .populate('usuario', ['nome', 'email', 'ativo'])
+          .populate('rota', ['rota', 'verbos', 'ativo'])
+          .exec((err, grupos) => {
           res.status(200).json(grupos)
     })
   }
