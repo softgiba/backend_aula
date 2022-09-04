@@ -2,7 +2,7 @@ import rotas from "../models/Rota.js";
 
 class RotaController {
   
-  static listarRotas = (req, res) => {
+  static listarRotas = async (req, res) => {
     rotas.find((err, rotas) => {
       if (err) {
         res.status(404).send({ message: `${err.message} - falha ao carregar dados da rota.` })
@@ -12,7 +12,7 @@ class RotaController {
     })
   }
 
-  static listarRotasPorNome = (req, res) => {
+  static listarRotasPorNome = async (req, res) => {
     const nome = req.query.nome
     rotas.find({'nome': nome}, {}, (err, rotas) => {
       if (err) {
@@ -23,7 +23,7 @@ class RotaController {
     })
   }
 
-  static listarRotaPorId = (req, res) => {
+  static listarRotaPorId = async (req, res) => {
     const id = req.params.id;
     rotas.findById(id).exec((err, rotas) => {
       if (err) {
@@ -34,7 +34,7 @@ class RotaController {
     })
   }
 
-  static cadastrarRota = (req, res) => {
+  static cadastrarRota = async (req, res) => {
     let rota = new rotas(req.body);
     rota.save((err) => {
       if (err) {
@@ -45,7 +45,7 @@ class RotaController {
     })
   }
 
-  static atualizarRota = (req, res) => {
+  static atualizarRota = async (req, res) => {
     const id = req.params.id;
 
     rotas.findByIdAndUpdate(id, { $set: req.body }, (err) => {
@@ -57,7 +57,7 @@ class RotaController {
     })
   }
 
-  static excluirRota = (req, res) => {
+  static excluirRota = async (req, res) => {
     const id = req.params.id;
 
     rotas.findByIdAndDelete(id, (err) => {

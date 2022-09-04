@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate';
 
 const grupoSchema = new mongoose.Schema(
     {
@@ -11,6 +12,8 @@ const grupoSchema = new mongoose.Schema(
         ativo: {type: Boolean, required: true}
     }
 );
+
+grupoSchema.plugin(mongoosePaginate);
 
 const grupos = mongoose.model('grupos', grupoSchema);
 

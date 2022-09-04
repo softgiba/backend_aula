@@ -2,7 +2,7 @@ import unidades from "../models/Unidade.js";
 
 class UnidadeController {
 
-  static listarUnidades = (req, res) => {
+  static listarUnidades = async (req, res) => {
     unidades.find((err, unidades) => {
       // res.status(200).json(unidades)
 
@@ -14,7 +14,7 @@ class UnidadeController {
     })
   }
 
-  static listarUnidadesPorNome = (req, res) => {
+  static listarUnidadesPorNome = async (req, res) => {
     const nome = req.query.nome
     unidades.find({'nome': nome}, {}, (err, unidades) => {
       if (err) {
@@ -25,7 +25,7 @@ class UnidadeController {
     })
   }
 
-  static listarUnidadePorId = (req, res) => {
+  static listarUnidadePorId = async (req, res) => {
     const id = req.params.id;
 
     unidades.findById(id, (err, unidades) => {
@@ -37,7 +37,7 @@ class UnidadeController {
     })
   }
 
-  static cadastrarUnidade = (req, res) => {
+  static cadastrarUnidade = async (req, res) => {
     let unidade = new unidades(req.body);
     unidade.save((err) => {
       if (err) {
@@ -48,7 +48,7 @@ class UnidadeController {
     })
   }
 
-  static atualizarUnidade = (req, res) => {
+  static atualizarUnidade = async (req, res) => {
     const id = req.params.id;
 
     unidades.findByIdAndUpdate(id, { $set: req.body }, (err) => {
@@ -60,7 +60,7 @@ class UnidadeController {
     })
   }
 
-  static excluirUnidade = (req, res) => {
+  static excluirUnidade = async (req, res) => {
     const id = req.params.id;
 
     unidades.findByIdAndDelete(id, (err) => {

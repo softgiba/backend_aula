@@ -34,6 +34,7 @@ const router = express.Router();
 
 
 router
+  // .get("/grupos", GrupoController.listarTodosGrupos)
   .get("/grupos", GrupoController.listarGrupos)
   .get("/grupos/busca", GrupoController.listarGruposPorNome)
   .get("/grupos/:id", GrupoController.listarGrupoPorId)

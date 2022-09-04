@@ -6,7 +6,7 @@ import usuarios from "./usuariosRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((rep, res) => {
-        res.status(200).send({ título: "Gerenciador de usuários" })
+        res.status(200).redirect("/docs") // redirecionando para documentação
     })
 
     app.use(

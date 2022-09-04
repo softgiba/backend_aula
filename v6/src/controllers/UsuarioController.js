@@ -2,7 +2,7 @@ import usuarios from "../models/Usuario.js";
 
 class UsuarioController {
 
-  static listarUsuarios = (req, res) => {
+  static listarUsuarios = async (req, res) => {
     usuarios.find()
       .populate('unidade', ['nome', 'descricao', 'ativo'])
       .populate('grupo', ['nome', 'ativo'])
@@ -15,7 +15,7 @@ class UsuarioController {
   }
 
 
-  static listarUsuariosPorNome = (req, res) => {
+  static listarUsuariosPorNome = async (req, res) => {
     const nome = req.query.nome
     usuarios.find({'nome': nome}, {}, (err, usuarios) => {
       if (err) {
@@ -26,7 +26,7 @@ class UsuarioController {
     })
   }
 
-  static listarUsuarioPorId = (req, res) => {
+  static listarUsuarioPorId = async (req, res) => {
     const id = req.params.id;
     usuarios.findById(id)
     .populate('unidade', ['nome', 'descricao', 'ativo'])
@@ -41,7 +41,7 @@ class UsuarioController {
     })
   }
 
-  static cadastrarUsuario = (req, res) => {
+  static cadastrarUsuario = async (req, res) => {
     let usuario = new usuarios(req.body);
     usuario.save((err) => {
       if (err) {
@@ -52,7 +52,7 @@ class UsuarioController {
     })
   }
 
-  static atualizarUsuario = (req, res) => {
+  static atualizarUsuario = async (req, res) => {
     const id = req.params.id;
     usuarios.findByIdAndUpdate(id, { $set: req.body }, (err) => {
       if (!err) {
@@ -63,7 +63,7 @@ class UsuarioController {
     })
   }
 
-  static excluirUsuario = (req, res) => {
+  static excluirUsuario = async (req, res) => {
     const id = req.params.id;
     usuarios.findByIdAndDelete(id, (err) => {
       if (!err) {
@@ -74,7 +74,7 @@ class UsuarioController {
     })
   }
 
-  static listarUsuarioPorNome = (req, res) => {
+  static listarUsuarioPorNome = async (req, res) => {
     const nome = req.query.nome
     usuarios.find({'nome': nome}, {}, (err, usuarios) => {
       res.status(200).send(usuarios);
