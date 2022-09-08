@@ -37,3 +37,6 @@ testes/
 /v8/mongoData
 /v8/src/config/dbConect.js
 /v8/.env
+
+# API-CRAS 
+/api-cras

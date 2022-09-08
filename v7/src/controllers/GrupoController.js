@@ -1,8 +1,7 @@
 import grupos from "../models/Grupo.js";
 
 class GrupoController {
-    
-  static listarGrupos = async (req, res) => {
+    static listarGrupos = async (req, res) => {
     if (!req.query.nome && !req.query.limit && !req.query.skip) {
      await grupos.find().sort({ nome: 1 })
         .populate([{path:'unidade', select: ['nome', 'descricao', 'ativo']}])

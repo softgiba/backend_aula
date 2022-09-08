@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate';
 
 const usuarioSchema = new mongoose.Schema(
     {
-        id: {type: String},
+        // id: {type: String},
         nome: {type: String, required: true},
         email: {type: String, required: true, unique: true},
         usuario: {type: String, required: true, trim: true},
@@ -13,8 +14,13 @@ const usuarioSchema = new mongoose.Schema(
         unidade: [{type: mongoose.Schema.Types.ObjectId, ref: 'unidades'}],
         rota: [{type: mongoose.Schema.Types.ObjectId, ref: 'rotas'}],
         grupo: [{type: mongoose.Schema.Types.ObjectId, ref: 'grupos'}]
+    },
+    {
+        versionKey: false
     }
 );
+
+usuarioSchema.plugin(mongoosePaginate);
 
 const usuarios = mongoose.model('usuarios', usuarioSchema);
 
