@@ -3,18 +3,15 @@
 v6-integracao/
 testes/
 .env
+# API-CRAS 
+/api-cras
 
-# v1
 
 
-# v2 
-/v2/node_modules
-
-# v3 
-/v3/node_modules
-
-# v4 
-/v4/node_modules
+# v1  v2 v3 v4
+/v2
+/v3 
+/v4
 
 # v5 
 /v5/node_modules
@@ -29,14 +26,10 @@ testes/
 # v7 
 /v7/node_modules
 /v7/mongoData
-/v7/src/config/dbConect.js
 /v7/.env
 
 # v8 
 /v8/node_modules
 /v8/mongoData
-/v8/src/config/dbConect.js
 /v8/.env
 
-# API-CRAS 
-/api-cras
