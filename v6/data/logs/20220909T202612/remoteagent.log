@@ -1,0 +1,37 @@
+[2022-09-09 20:26:12.198] [remoteagent] [info] 
+
+
+
+
+[2022-09-09 20:26:12.198] [remoteagent] [info] Extension host agent started.
+[2022-09-09 20:26:42.570] [remoteagent] [info] [172.22.0.1][6d26a885][ManagementConnection] New connection established.
+[2022-09-09 20:26:46.708] [remoteagent] [error] [File Watcher (parcel)] Inotify limit reached (ENOSPC) (path: /)
+[2022-09-09 20:26:49.763] [remoteagent] [info] [172.22.0.1][baf673ec][ExtensionHostConnection] New connection established.
+[2022-09-09 20:26:49.774] [remoteagent] [info] [172.22.0.1][baf673ec][ExtensionHostConnection] <727> Launched Extension Host Process.
+[2022-09-09 20:27:34.167] [remoteagent] [info] [172.22.0.1][6d26a885][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-09-09 20:27:34.209] [remoteagent] [info] [172.22.0.1][baf673ec][ExtensionHostConnection] <727> Extension Host Process exited with code: 0, signal: null.
+[2022-09-09 20:27:36.352] [remoteagent] [info] [172.22.0.1][24b916b2][ManagementConnection] New connection established.
+[2022-09-09 20:27:42.490] [remoteagent] [info] [172.22.0.1][b101c617][ExtensionHostConnection] New connection established.
+[2022-09-09 20:27:42.502] [remoteagent] [info] [172.22.0.1][b101c617][ExtensionHostConnection] <839> Launched Extension Host Process.
+[2022-09-09 20:43:30.301] [remoteagent] [info] Getting Manifest... ms-azuretools.vscode-docker
+[2022-09-09 20:43:33.745] [remoteagent] [info] Installing extension: ms-azuretools.vscode-docker
+[2022-09-09 20:43:37.211] [remoteagent] [info] Downloaded extension: ms-azuretools.vscode-docker /config/data/CachedExtensionVSIXs/ms-azuretools.vscode-docker-1.22.1
+[2022-09-09 20:43:37.385] [remoteagent] [info] Extracted extension to /config/extensions/.49af52bc-ad08-45e4-ba5b-ebdff68794a0: ms-azuretools.vscode-docker
+[2022-09-09 20:43:37.390] [remoteagent] [info] Renamed to /config/extensions/ms-azuretools.vscode-docker-1.22.1
+[2022-09-09 20:43:37.398] [remoteagent] [info] Extracting completed. ms-azuretools.vscode-docker
+[2022-09-09 20:43:37.399] [remoteagent] [info] Extension installed successfully: ms-azuretools.vscode-docker
+[2022-09-09 20:47:22.408] [remoteagent] [info] [172.22.0.1][24b916b2][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+[2022-09-09 20:47:22.412] [remoteagent] [error] Error: Unexpected SIGPIPE
+    at process.<anonymous> (/app/code-server/lib/vscode/out/vs/server/node/server.main.js:148:7922)
+    at process.emit (node:events:525:35)
+[2022-09-09 20:49:14.868] [remoteagent] [info] [172.22.0.1][24b916b2][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+[2022-09-09 20:49:14.869] [remoteagent] [info] [172.22.0.1][cd929c76][ManagementConnection] New connection established.
+[2022-09-09 20:49:18.024] [remoteagent] [info] [172.22.0.1][50d5df33][ExtensionHostConnection] New connection established.
+[2022-09-09 20:49:18.039] [remoteagent] [info] [172.22.0.1][50d5df33][ExtensionHostConnection] <9421> Launched Extension Host Process.
+[2022-09-09 20:49:49.860] [remoteagent] [info] [172.22.0.1][cd929c76][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2022-09-09 20:49:49.879] [remoteagent] [info] [172.22.0.1][50d5df33][ExtensionHostConnection] <9421> Extension Host Process exited with code: 0, signal: null.
+[2022-09-09 20:50:04.057] [remoteagent] [info] [172.22.0.1][b0a5fefc][ManagementConnection] New connection established.
+[2022-09-09 20:50:07.367] [remoteagent] [info] [172.22.0.1][be803da0][ExtensionHostConnection] New connection established.
+[2022-09-09 20:50:07.378] [remoteagent] [info] [172.22.0.1][be803da0][ExtensionHostConnection] <9501> Launched Extension Host Process.
+[2022-09-09 20:54:14.981] [remoteagent] [info] [172.22.0.1][24b916b2][ManagementConnection] The reconnection short grace time of 5m has expired, so the connection will be disposed.
+[2022-09-09 20:54:15.105] [remoteagent] [info] [172.22.0.1][b101c617][ExtensionHostConnection] <839> Extension Host Process exited with code: 0, signal: null.
