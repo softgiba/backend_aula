@@ -1,37 +1,27 @@
 import grupos from "../models/Grupo.js";
 
 class GrupoController {
-    static listarGrupos = async (req, res) => {
-    if (!req.query.nome && !req.query.limit && !req.query.skip) {
-     await grupos.find().sort({ nome: 1 })
-        .populate([{path:'unidade', select: ['nome', 'descricao', 'ativo']}])
-        .populate([{path:'usuario', select: ['nome', 'email', 'ativo']}])
-        .populate([{path:'rota', select: ['rota', 'verbos', 'ativo']}])
-        .exec((err, grupos) => {
-          res.status(200).json(grupos);
-        });
-    } else {
-      if (!req.query.nome || !req.query.limit || !req.query.skip) {
-        res.status(400).send({ message: `Sem resultados, parâmentros insuficientes. Nome: ${req.query.nome} + page: ${req.query.page}  + limit: ${req.query.limit} +  skip: ${req.query.skip}` })
+static listarGrupos = async (req, res) => {
+    try {
+      const nome = req.query.nome;
+      const { page, perPage } = req.query;
+      const options = { // limitar a quantidade máxima por requisição
+        nome: (nome),
+        page: parseInt(page) || 1,
+        limit: parseInt(perPage) || 10,
+      };
+      if (!nome) {
+        const grupo = await grupos.paginate({}, options);
+        return res.json(grupo);
       } else {
-        const page = req.query.page;
-        const nome = req.query.nome;
-        const limit = req.query.limit;
-        if (!page) page = 1;
-        if (!limit) limit = 10;
-        const skip = (page - 1) * limit;
-
-        await grupos.find({ 'nome': nome }).skip(skip).limit(limit).sort({ nome: 1 })
-          .populate('unidade', ['nome', 'descricao', 'ativo'])
-          .populate('usuario', ['nome', 'email', 'ativo'])
-          .populate('rota', ['rota', 'verbos', 'ativo'])
-          .exec((err, grupos) => {
-            res.status(200).json(grupos);
-          });
+        const grupo = await grupos.paginate({ nome }, options);
+        return res.json(grupo);
       }
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send(err);
     }
   }
-
 
   static listarGrupoPorId = async (req, res) => {
     const id = req.params.id;

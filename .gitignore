@@ -1,5 +1,6 @@
 ======
 # root/
+/Docker_for_code_server
 v6-integracao/
 testes/
 .env

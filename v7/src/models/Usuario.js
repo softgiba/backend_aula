@@ -12,16 +12,16 @@ const usuarioSchema = new mongoose.Schema(
 
         // unidade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'unidades' }],
         unidades: [
-            { oid: ObjectId, required: true },
-            { nome: String, required: true },
-            { local: String, required: true },
-            { ativo: Boolean, required: true }
+            { oid: String },
+            { nome: String },
+            { local: String },
+            { ativo: Boolean }
         ],
         // rota: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rotas' }],
         rotas: [
-            { oid: ObjectId, required: true },
-            { nome: String, required: true, trim: true },
-            { rota: String, required: true, trim: true, unique: true },
+            { oid: String},
+            { nome: String},
+            { rota: String},
             {
                 verbos: [
                     { verbo: String },
@@ -30,15 +30,15 @@ const usuarioSchema = new mongoose.Schema(
         ],
         // grupo: [{ type: mongoose.Schema.Types.ObjectId, ref: 'grupos' }]
         grupos: [
-            { oid: ObjectId, required: true },
-            { nome: { type: String, required: true, trim: true } },
-            { descricao: { type: String, required: true } },
-            { ativo: { type: Boolean, required: true } },
+            { oid: String},
+            { nome: String},
+            { descricao: String},
+            { ativo: Boolean},
             {
                 rotas: [
-                    { oid: ObjectId, required: true },
-                    { nome: String, required: true, trim: true },
-                    { rota: String, required: true, trim: true, unique: true },
+                    { oid: String},
+                    { nome: String},
+                    { rota: String},
                     {
                         verbos: [
                             { verbo: String },
