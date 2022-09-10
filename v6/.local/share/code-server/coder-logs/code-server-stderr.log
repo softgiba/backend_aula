@@ -1,9 +1,0 @@
-[20:26:46] [File Watcher (parcel)] Inotify limit reached (ENOSPC) (path: /)
-Error: Unexpected SIGPIPE
-    at process.<anonymous> (/app/code-server/lib/vscode/out/bootstrap.js:1:407)
-    at process.emit (node:events:525:35)
-[20:47:22] Error: Unexpected SIGPIPE
-    at process.<anonymous> (/app/code-server/lib/vscode/out/vs/server/node/server.main.js:148:7922)
-    at process.emit (node:events:525:35)
-[21:40:14] [172.22.0.1][be803da0][ExtensionHostConnection] Unknown reconnection token (never seen).
-[21:40:17] [172.22.0.1][b0a5fefc][ManagementConnection] Unknown reconnection token (never seen).

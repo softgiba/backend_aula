@@ -12,8 +12,6 @@ dotenv.config()
 const port = process.env.PORT || 3031;
 
 // cabeçalho da documentação
-
-
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 

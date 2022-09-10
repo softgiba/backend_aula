@@ -1,36 +1,4 @@
-======
 # root/
-/Docker_for_code_server
-v6-integracao/
-testes/
-.env
-# API-CRAS 
 /api-cras
-
-
-
-# v1  v2 v3 v4
-/v2
-/v3 
-/v4
-
-# v5 
-/v5/node_modules
-/v5/mongoData
-/v5/src/config/dbConect.js
-
-# v6 
-/v6/node_modules
-/v6/mongoData
-/v6/.env
-
-# v7 
-/v7/node_modules
-/v7/mongoData
-/v7/.env
-
-# v8 
-/v8/node_modules
-/v8/mongoData
-/v8/.env
-
+/deprecated
+.gitingore

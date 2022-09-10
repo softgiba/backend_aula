@@ -1,0 +1,15 @@
+
+// selecione o banco de dados para trabalhar.
+use('UserManager');
+
+// Apague a coleção antes de inserir, só se quiser.
+// Caso não queira comente a linha 
+db.unidades.drop();
+
+// Insert a few documents into the sales collection.
+db.unidades.insertMany([
+  {'nome': 'Vilhena', 'email': 'vilhena.unidade@usermananger.com', 'local': 'Vilhena', 'ativo': true},
+  {'nome': 'Colorado', 'email': 'colocaro.unidade@usermananger.com', 'local': 'Colorado', 'ativo': true},
+  {'nome': 'Cacoal', 'email': 'cacoal.unidade@usermananger.com', 'local': 'Cacoal', 'ativo': true},
+  {'nome': 'Ariquemes', 'email': 'ariquemes.unidade@usermananger.com', 'local': 'Ariquemes', 'ativo': true}
+  ]);
