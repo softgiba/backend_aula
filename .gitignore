@@ -1,7 +1,7 @@
 # root/
 /api-cras
 /deprecated
-.gitingore
+.env
 
 # v7 
 /v7/node_modules
