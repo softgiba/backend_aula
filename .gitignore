@@ -5,5 +5,4 @@
 
 # v7 
 /v7/node_modules
-/v7/mongoData
 /v7/.env
