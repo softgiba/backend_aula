@@ -4,13 +4,13 @@ import mongoosePaginate from 'mongoose-paginate';
 const rotaSchema = new mongoose.Schema(
     {
         // id: {type: String},
-        nome: { type: String, required: true, trim: true },
-        rota: { type: String, required: true, trim: true, unique: true },
+        nome: { type: String, required: true, minlength: 4, maxlength: 200, trim: true },
+        rota: { type: String, required: true, minlength: 4, maxlength: 200, trim: true, unique: true },
         verbos: [
             { verbo: String },
             { permitido: Boolean }
         ],
-        ativo: { type: Boolean, required: true }
+        ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 }
     },
     {
         versionKey: false

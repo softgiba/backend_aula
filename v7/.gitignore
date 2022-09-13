@@ -1,4 +1,4 @@
 # v7 
-/node_modules
-/mongoData
+node_modules
+mongoData
 .env

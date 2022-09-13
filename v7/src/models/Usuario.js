@@ -4,24 +4,24 @@ import mongoosePaginate from 'mongoose-paginate';
 const usuarioSchema = new mongoose.Schema(
     {
         // id: {type: String},
-        nome: { type: String, required: true },
-        email: { type: String, required: true, unique: true },
-        senha: { type: String, required: true },
+        nome: { type: String, required: true, minlength: 4, maxlength: 200 },
+        email: { type: String, required: true, minlength: 4, maxlength: 200, unique: true },
+        senha: { type: String, required: true, minlength: 4, maxlength: 200 },
         diretorio_foto: { type: String, trim: true },
-        ativo: { type: Boolean, required: true },
+        ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 },
 
         // unidade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'unidades' }],
         unidades: [
-            { oid: String },
+            { oid: String, required: true, trim: true },
             { nome: String },
             { local: String },
             { ativo: Boolean }
         ],
         // rota: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rotas' }],
         rotas: [
-            { oid: String},
-            { nome: String},
-            { rota: String},
+            { oid: String, required: true, trim: true },
+            { nome: String },
+            { rota: String },
             {
                 verbos: [
                     { verbo: String },
@@ -30,15 +30,15 @@ const usuarioSchema = new mongoose.Schema(
         ],
         // grupo: [{ type: mongoose.Schema.Types.ObjectId, ref: 'grupos' }]
         grupos: [
-            { oid: String},
-            { nome: String},
-            { descricao: String},
-            { ativo: Boolean},
+            { oid: String, required: true, trim: true },
+            { nome: type: String, required: true, minlength: 4, maxlength: 200, trim: true },
+            { descricao: type: String, required: true, minlength: 4, maxlength: 200 },
+            { ativo: type: Boolean, required: true, minlength: 4, maxlength: 200 },
             {
                 rotas: [
-                    { oid: String},
-                    { nome: String},
-                    { rota: String},
+                    { oid: String, required: true, trim: true },
+                    { nome: String },
+                    { rota: String },
                     {
                         verbos: [
                             { verbo: String },

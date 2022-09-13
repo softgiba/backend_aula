@@ -4,10 +4,10 @@ import mongoosePaginate from 'mongoose-paginate';
 const unidadeSchema = new mongoose.Schema(
     {
         // _id: {type: String},
-        nome: { type: String, required: true },
-        email: { type: String, required: true, unique: true },
-        local: { type: String, required: true },
-        ativo: { type: Boolean, required: true }
+        nome: { type: String, required: true, minlength: 4, maxlength: 200 },
+        email: { type: String, required: true, minlength: 4, maxlength: 200, unique: true },
+        local: { type: String, required: true, minlength: 4, maxlength: 200 },
+        ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 }
     },
     {
         versionKey: false
