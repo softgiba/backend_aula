@@ -9,20 +9,20 @@ const grupoSchema = new mongoose.Schema(
         ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 },
         // unidade: [{type: mongoose.Schema.Types.ObjectId, ref: 'unidades'}],
         unidades: [
-            { oid: String, required: true, trim: true },
-            { nome: String},
-            { local: String},
-            { ativo: Boolean}
+            { oid: { type: String, required: true, trim: true }},
+            { nome: { type: String}},
+            { local: { type: String}},
+            { ativo: { type: Boolean}}
         ],
         // rota: [{type: mongoose.Schema.Types.ObjectId, ref: 'rotas'}],
         rotas: [
-            { oid: String, required: true, trim: true },
-            { nome: String},
-            { rota: String},
+            { oid: { type: String, required: true, trim: true }},
+            { nome: { type: String}},
+            { rota: { type: String}},
             {
                 verbos: [
-                    { verbo: String },
-                    { permitido: Boolean }]
+                    { verbo: { type: String }},
+                    { permitido: { type: Boolean }}]
             }
         ]
     },

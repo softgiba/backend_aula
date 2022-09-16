@@ -7,8 +7,8 @@ const rotaSchema = new mongoose.Schema(
         nome: { type: String, required: true, minlength: 4, maxlength: 200, trim: true },
         rota: { type: String, required: true, minlength: 4, maxlength: 200, trim: true, unique: true },
         verbos: [
-            { verbo: String },
-            { permitido: Boolean }
+            { verbo: { type: String }},
+            { permitido: { type: Boolean }}
         ],
         ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 }
     },

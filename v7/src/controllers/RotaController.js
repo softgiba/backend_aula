@@ -8,7 +8,7 @@ class RotaController {
       const options = { // limitar a quantidade máxima por requisição
         nome: (nome),
         page: parseInt(page) || 1,
-        limit: parseInt(perPage) || 10,
+        limit: parseInt(perPage) > 10 ? perPage = 10 : perPage = parseInt(perPage) || 10
       };
       if (!nome) {
         const rota = await rotas.paginate({}, options);

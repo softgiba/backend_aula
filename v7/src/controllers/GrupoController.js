@@ -8,13 +8,13 @@ static listarGrupos = async (req, res) => {
       const options = { // limitar a quantidade máxima por requisição
         nome: (nome),
         page: parseInt(page) || 1,
-        limit: parseInt(perPage) || 10,
+        limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
       };
       if (!nome) {
         const grupo = await grupos.paginate({}, options);
         return res.json(grupo);
       } else {
-        const grupo = await grupos.paginate({ nome }, options);
+        const grupo = await grupos.paginate({ }, options);
         return res.json(grupo);
       }
     } catch (err) {
