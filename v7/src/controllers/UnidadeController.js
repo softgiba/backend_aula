@@ -15,7 +15,7 @@ class UnidadeController {
         const unidade = await unidades.paginate({}, options);
         return res.json(unidade);
       } else {
-        const unidade = await unidades.paginate({ nome }, options);
+        const unidade = await unidades.paginate({  nome: new RegExp(nome, 'i') }, options);
         return res.json(unidade);
       }
     } catch (err) {

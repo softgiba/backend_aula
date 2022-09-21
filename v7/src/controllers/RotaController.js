@@ -14,7 +14,7 @@ class RotaController {
         const rota = await rotas.paginate({}, options);
         return res.json(rota);
       } else {
-        const rota = await rotas.paginate({ nome }, options);
+        const rota = await rotas.paginate({  nome: new RegExp(nome, 'i')  }, options);
         return res.json(rota);
       }
     } catch (err) {

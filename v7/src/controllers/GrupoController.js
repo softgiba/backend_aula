@@ -1,7 +1,6 @@
 import grupos from "../models/Grupo.js";
-
 class GrupoController {
-static listarGrupos = async (req, res) => {
+  static listarGrupos = async (req, res) => {
     try {
       const nome = req.query.nome;
       const { page, perPage } = req.query;
@@ -14,7 +13,7 @@ static listarGrupos = async (req, res) => {
         const grupo = await grupos.paginate({}, options);
         return res.json(grupo);
       } else {
-        const grupo = await grupos.paginate({ }, options);
+        const grupo = await grupos.paginate({ nome: new RegExp(nome, 'i') }, options);
         return res.json(grupo);
       }
     } catch (err) {
@@ -59,6 +58,7 @@ static listarGrupos = async (req, res) => {
       }
     })
   }
+
 
   static excluirGrupo = async (req, res) => {
     const id = req.params.id;
