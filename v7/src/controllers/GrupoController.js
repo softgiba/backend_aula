@@ -5,7 +5,6 @@ class GrupoController {
       const nome = req.query.nome;
       const { page, perPage } = req.query;
       const options = { // limitar a quantidade máxima por requisição
-        nome: (nome),
         page: parseInt(page) || 1,
         limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
       };

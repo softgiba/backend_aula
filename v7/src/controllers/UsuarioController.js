@@ -17,7 +17,7 @@ class UsuarioController {
       } else {
         const usuario = await usuarios.paginate({  nome: new RegExp(nome, 'i')  }, options);
         return res.json(usuario);
-      }
+      }-
     } catch (err) {
       console.error(err);
       return res.status(500).send(err);
