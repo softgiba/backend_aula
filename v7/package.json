@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "seed": "node src/seeds/pessoasSeed.js"
+    "seed": "node src/seeds/seeds.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-paginate": "^1.0.2",
+    "faker-br": "^0.4.1",
     "intellisense": "^0.0.1",
     "mongoose": "^6.2.6",
     "mongoose-paginate": "^5.0.3",
