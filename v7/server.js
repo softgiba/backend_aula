@@ -7,9 +7,9 @@ import swaggerOptions from './src/docs/head.js'; // importando configurações d
 
 dotenv.config()
 
-// definição de porta condicional do proxy ou na 3000
+// definição de porta condicional do proxy ou na 3030
 
-const port = process.env.PORT || 3031;
+const port = process.env.PORT || 3030;
 
 // cabeçalho da documentação
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

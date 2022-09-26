@@ -9,6 +9,8 @@ db.once("open", () => {
   console.log('Conexão com o banco estabelecida!')
 });
 
+
+
 //instanciando express
 const app = express();
 

@@ -42,6 +42,8 @@ class GrupoController {
       if (err) {
         res.status(500).send({ message: `${err.message} - falha ao cadastrar grupo.` })
       } else {
+        console.log(grupo);
+        console.log(grupo.toJSON());
         res.status(201).send(grupo.toJSON())
       }
     })

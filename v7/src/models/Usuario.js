@@ -10,41 +10,42 @@ const usuarioSchema = new mongoose.Schema(
         diretorio_foto: { type: String, trim: true },
         ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 },
 
-        // unidade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'unidades' }],
+        // unidade: [{type: mongoose.Schema.Types.ObjectId, ref: 'unidades'}], // unidade vinculada ao grupo caso deseje que o grupo seja vinculado a uma unidade
         unidades: [
-            { oid: { type: String, required: true, trim: true }},
-            { nome: { type: String }},
-            { local: { type: String }},
-            { ativo: { type: Boolean }}
+            { oid_unidade: { type: String, required: true, trim: true } },
+            { nome: { type: String, required: true, minlength: 4, maxlength: 200 } },
+            { email: { type: String, required: true, minlength: 4, maxlength: 200, unique: true } },
+            { local: { type: String, required: true, minlength: 4, maxlength: 200 } },
+            { ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 } }
+
         ],
-        // rota: [{ type: mongoose.Schema.Types.ObjectId, ref: 'rotas' }],
+        // rota: [{type: mongoose.Schema.Types.ObjectId, ref: 'rotas'}], // rota vinculada ao grupo caso deseje que o grupo seja vinculado a uma rota
         rotas: [
-            { oid: { type: String, required: true, trim: true }},
-            { nome: { type: String }},
-            { rota: { type: String }},
-            {
-                verbos: [
-                    { verbo: String },
-                    { permitido: Boolean }]
-            }
+            { nome: { type: String, required: true, minlength: 4, maxlength: 200, trim: true } },
+            { rota: { type: String, required: true, trim: true, unique: true } },
+            { verbo_get: { type: Boolean } },
+            { verbo_put: { type: Boolean } },
+            { verbo_patch: { type: Boolean } },
+            { verbo_delete: { type: Boolean } },
+            { verbo_post: { type: Boolean } },
+            { ativo: { type: Boolean } }
         ],
         // grupo: [{ type: mongoose.Schema.Types.ObjectId, ref: 'grupos' }]
         grupos: [
-            { oid: { type: String, required: true, trim: true } },
+            { oid_grupo: { type: String, required: true, trim: true } },
             { nome: { type: String, required: true, minlength: 4, maxlength: 200, trim: true } },
             { descricao: { type: String, required: true, minlength: 4, maxlength: 200 } },
             { ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 } },
             {
                 rotas: [
-                    { oid: { type: String, required: true, trim: true } },
-                    { nome: { type: String } },
-                    { rota: { type: String } },
-                    {
-                        verbos: [
-                            { verbo: { type: String }},
-                            { permitido: { type: Boolean } }
-                        ]
-                    }
+                    { nome: { type: String, required: true, minlength: 4, maxlength: 200, trim: true } },
+                    { rota: { type: String, required: true, trim: true, unique: true } },
+                    { verbo_get: { type: Boolean } },
+                    { verbo_put: { type: Boolean } },
+                    { verbo_patch: { type: Boolean } },
+                    { verbo_delete: { type: Boolean } },
+                    { verbo_post: { type: Boolean } },
+                    { ativo: { type: Boolean } }
                 ]
             }
         ]

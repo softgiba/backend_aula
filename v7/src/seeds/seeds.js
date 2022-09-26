@@ -2,7 +2,7 @@ import faker from 'faker-br';
 import db from '../config/dbConect.js';
 import Unidade from '../models/Unidade.js';
 import Grupo from '../models/Grupo.js';
-import Usuario from '../models/Usuario.js';
+// import Usuario from '../models/Usuario.js';
 import Rota from '../models/Rota.js';
 
 // estabelecendo e testando a conexão
@@ -11,8 +11,11 @@ db.once("open", () => {
     console.log('Conexão com o banco estabelecida!')
 });
 
-// Criando um array de objetos com dados de teste para unidades
+// Popupalando o banco de dados com dados falsos para testes de unidades
+//eliminando as rotas existentes
 await Unidade.deleteMany();
+
+//criando um array de objetos com dados de teste para unidades
 for (let i = 1; i <= 10; i++) {
     const seedUnidades = [
         {
@@ -26,87 +29,79 @@ for (let i = 1; i <= 10; i++) {
     console.log('Unidade: ' + i + ' inserida!');
 };
 
-// Criando um array de objetos com dados de teste para unidades
+// Popupalando o banco de dados com dados falsos para testes de rotas
+//eliminando as rotas existentes
 await Rota.deleteMany();
 
-// function getArrayVerbos() {
-//     const seedVerbos = [];
-//         for (let i = 1; i <= 4; i++) {
-//         seedVerbos.push(
-//             {
-//                 verbo: faker.random.arrayElement(['GET', 'POST', 'PUT', 'DELETE']),
-//                 permitido: faker.random.boolean()
-//             }
-//         )
-//     }
-    
-//     return seedVerbos;
-// }
+// Função para gerar um numero aleatório entre 1 e 100000
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
-    for (let i = 1; i <= 10; i++) {
-        // console.log(getArrayVerbos());
-        const seedRotas = [
+//criando um array de objetos com dados de teste para rotas
+for (let i = 1; i <= 10; i++) {
+    const seedRotas =
+    {
+        nome: faker.internet.domainName(),
+        rota: 'http://' + getRandomInt(100000) + faker.internet.domainName(),
+        ativo: faker.random.boolean(),
+        verbo_get: faker.random.boolean(),
+        verbo_put: faker.random.boolean(),
+        verbo_patch: faker.random.boolean(),
+        verbo_delete: faker.random.boolean(),
+        verbo_post: faker.random.boolean()
+    }
+
+    await Rota.insertMany(seedRotas);
+    console.log('Rota: ' + i + ' inserida!');
+};
+
+// Popupalando o banco de dados com dados falsos para testes de grupos
+//eliminando os grupos existentes
+await Grupo.deleteMany();
+
+//criando um array de objetos com dados de teste para grupos
+const grupoJson = [];
+
+for (let i = 1; i <= 10; i++) {
+    const seedGrupos =
+    {
+        nome: faker.company.companyName(),
+        descricao: faker.lorem.sentence(),
+        ativo: faker.random.boolean(),
+        unidades: [
             {
-                nome: faker.internet.domainName(),
-                rota: faker.internet.url(),
-                // verbos: getArrayVerbos(),
-                verbos: faker.random.objectElement([
-                    {'verbo': 'GET', 'permitido': 'true'}, 
-                    {'verbo': 'POST', 'permitido': 'false'}, 
-                    {'verbo': 'PUT', 'permitido': 'true'}, 
-                    {'verbo': 'PATCH', 'permitido': 'false'},
-                    {'verbo': 'DELETE', 'permitido': 'true'}]),
+                oid_unidade: faker.random.uuid(),
+                nome: faker.company.companyName(),
+                email: faker.internet.email(),
+                local: faker.address.city(),
+                ativo: faker.random.boolean()
+            },
+            {
+                oid_unidade: faker.random.uuid(),
+                nome: faker.company.companyName(),
+                email: faker.internet.email(),
+                local: faker.address.city(),
                 ativo: faker.random.boolean()
             }
+        ],
+        rotas: [
+            {
+                nome: faker.internet.domainName(),
+                rota: 'http://' + getRandomInt(100000) + faker.internet.domainName(),
+                ativo: faker.random.boolean(),
+                verbo_get: faker.random.boolean(),
+                verbo_put: faker.random.boolean(),
+                verbo_patch: faker.random.boolean(),
+                verbo_delete: faker.random.boolean(),
+                verbo_post: faker.random.boolean()
+            }
         ]
-        await Rota.insertMany(seedRotas);
-        console.log(seedRotas);
-        console.log('Unidade: ' + i + ' inserida!');
+    }
+    console.log(seedGrupos);
+    await Grupo.collection.insertOne(seedGrupos);
+    console.log('Grupo: ' + i + ' inserido!');
+};
 
-    };
-    // // Extraindo OID de pessoas para inserir em atendimentos
-    // const pessoas = await Pessoa.find();
-    // const pessoasOIDArray = pessoas.map(pessoa => pessoa._id).toString().replace(/ObjectId\(/g, '').replace(/\)/g, '').split(',');
-
-    // console.log(pessoasOIDArray);
-
-    // // excluindo todos os atendimentos
-    // await Atendimento.deleteMany();
-
-    // // Laço para inserir atendimentos
-    // for (let i = 1; i <= 50; i++) {
-    //     const seedAtendimentos = [
-    //         {
-    //             oid_pessoa: faker.random.arrayElement(pessoasOIDArray), // insere com base no array de OID de pessoas
-    //             tipo: faker.random.arrayElement([
-    //                 'Auxílio Brasil',
-    //                 'Passe Livre Estadual',
-    //                 'Redução da tarifa da Energia Elétrica',
-    //                 'Isenção de taxas em Concursos e Enem',
-    //                 'ID Jovem',
-    //                 'Passe Livre Federal',
-    //                 'Redução da tarifa da Água',
-    //                 'Alíquota Reduzida do INSS',
-    //                 'Serviços, programas, projetos e benefícios',
-    //                 'Cesta Básica', 'PAIF (grupo)',
-    //                 'Atendimento Psicossocial',
-    //                 'Programa Criança Feliz',
-    //                 'BPC/LOAS',
-    //                 'SCFV',
-    //                 'Informações gerais',
-    //                 'Auxílio mortalidade',
-    //                 'PAIF (Atendimento especializado)',
-    //                 'Programa',
-    //                 'Mamãe Cheguei',
-    //                 'Programa Crescendo Bem BCP Escola Solicitação de doações em geral']),
-    //             observacao: faker.lorem.paragraph(),
-    //             dataAtendimento: faker.date.past()
-    //         }
-    //     ]
-    //     await Atendimento.insertMany(seedAtendimentos);
-    //     console.log('Atendimento: ' + i + ' inserido!');
-
-    // };
-
-    //Deligando a conexão com o banco de dados com mensagem de sucesso ou de erro
-    db.close((err) => { err ? console.log(err) : console.log('Conexão com o banco encerrada!') });
+//Deligando a conexão com o banco de dados com mensagem de sucesso ou de erro
+db.close((err) => { err ? console.log(err) : console.log('Conexão com o banco encerrada!') });
