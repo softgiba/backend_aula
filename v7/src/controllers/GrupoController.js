@@ -1,8 +1,10 @@
 import grupos from "../models/Grupo.js";
 class GrupoController {
+  
   static listarGrupos = async (req, res) => {
     try {
       const nome = req.query.nome;
+      const unidade = req.query.unidade;
       const { page, perPage } = req.query;
       const options = { // limitar a quantidade máxima por requisição
         page: parseInt(page) || 1,
@@ -12,7 +14,8 @@ class GrupoController {
         const grupo = await grupos.paginate({}, options);
         return res.json(grupo);
       } else {
-        const grupo = await grupos.paginate({ nome: new RegExp(nome, 'i') }, options);
+        const grupo = await grupos.paginate({ unidades: new RegExp(unidades, 'i') }, options);
+        console.log('teste');
         return res.json(grupo);
       }
     } catch (err) {
@@ -71,6 +74,7 @@ class GrupoController {
       }
     })
   }
+
 
 }
 

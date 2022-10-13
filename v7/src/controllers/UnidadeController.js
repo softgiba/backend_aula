@@ -9,7 +9,7 @@ class UnidadeController {
       const options = {
         nome: (nome),
         page: parseInt(page) || 1,
-        limit: parseInt(perPage) || 10
+        limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
       };
       if (!nome) {
         const unidade = await unidades.paginate({}, options);

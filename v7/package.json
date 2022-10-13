@@ -4,15 +4,17 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
-    "seed": "node src/seeds/seeds.js"
+    "seed": "node src/seeds/seeds.js",
+    "test": "node src/test/test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "async": "^3.2.4",
+    "bcrypt": "^5.1.0",
     "bcrypt-nodejs": "0.0.3",
     "cors": "^2.8.5",
     "cross-fetch": "^3.1.5",
@@ -21,10 +23,12 @@
     "express-paginate": "^1.0.2",
     "faker-br": "^0.4.1",
     "intellisense": "^0.0.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.6",
     "mongoose-paginate": "^5.0.3",
     "mongoose-paginate-v2": "^1.7.0",
     "node-fetch": "^3.2.10",
+    "npm": "^8.19.2",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.5.0",
     "yamljs": "^0.3.0"

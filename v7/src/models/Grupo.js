@@ -9,7 +9,7 @@ const grupoSchema = new mongoose.Schema(
         ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 },
         // unidade: [{type: mongoose.Schema.Types.ObjectId, ref: 'unidades'}], // unidade vinculada ao grupo caso deseje que o grupo seja vinculado a uma unidade
         unidades: [
-            { oid_unidade: { type: String, required: true, trim: true } }, 
+            { oid_unidade: { type: String, required: true, trim: true } },
             { nome: { type: String, required: true, minlength: 4, maxlength: 200 } },
             { email: { type: String, required: true, minlength: 4, maxlength: 200, unique: true } },
             { local: { type: String, required: true, minlength: 4, maxlength: 200 } },

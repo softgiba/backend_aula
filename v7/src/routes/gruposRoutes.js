@@ -25,13 +25,13 @@ const router = express.Router();
  *                      type: string
  *                    descricao:
  *                      type: string
- *        404:
- *          description: Nenhum grupo encontrado
+ *        500:
+ *          description: Erro no oServidor
  *          content:
  *            application/json:
- *               example: Not Found
+ *               example: Erro no Servidor
+ * 
 */
-
 
 router
   .get("/grupos", GrupoController.listarGrupos)
@@ -39,6 +39,7 @@ router
   .post("/grupos", GrupoController.cadastrarGrupo)
   .put("/grupos/:id", GrupoController.atualizarGrupo)
   .delete("/grupos/:id", GrupoController.excluirGrupo)
+  .patch("/grupos/:id", GrupoController.atualizarGrupo)
 
 /* A comment. */
 export default router;

@@ -2,6 +2,8 @@
 import express from "express";
 import db from "./config/dbConect.js";
 import routes from "./routes/index.js";
+import jwt from 'jsonwebtoken'; // para autenticação com JWT
+import crypto from 'crypto';
 
 // estabelecendo e testando a conexão
 db.on("error", console.log.bind(console, "Conexão com o banco falhou!"));
@@ -10,6 +12,8 @@ db.once("open", () => {
 });
 
 
+const secret = crypto.randomBytes(64).toString('hex');  
+console.log(secret);
 
 //instanciando express
 const app = express();

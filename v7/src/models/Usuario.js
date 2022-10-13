@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import mongoose from "mongoose";
 import mongoosePaginate from 'mongoose-paginate';
 
@@ -52,6 +53,14 @@ const usuarioSchema = new mongoose.Schema(
     },
     { versionKey: false }
 );
+
+// const senha = new bcrypt.hashSync('123456', 10);
+// usuarioSchema.pre('save', async function (next) {
+//     const hash = await bcrypt.hash(this.senha, 10);
+//     this.senha = hash;
+//     next();
+// });
+
 
 usuarioSchema.plugin(mongoosePaginate);
 
