@@ -20,6 +20,7 @@ router
   .get("/usuarios/:id", UsuarioController.listarUsuarioPorId)
   .post("/usuarios", UsuarioController.cadastrarUsuario)
   .put("/usuarios/:id", UsuarioController.atualizarUsuario)
+  .patch("/usuarios/:id", UsuarioController.atualizarUsuario)
   .delete("/usuarios/:id", UsuarioController.excluirUsuario)
 
 /* A comment. */

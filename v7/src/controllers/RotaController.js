@@ -50,14 +50,15 @@ class RotaController {
 
   static atualizarRota = async (req, res) => {
     const id = req.params.id;
-    await rotas.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+    await rotas.findOneAndUpdate(id, { $set: req.body }, (err) => {
       if (!err) {
         res.status(200).send({ message: 'Rota atualizada com sucesso' })
       } else {
         res.status(500).send({ message: err.message })
       }
-    })
-  }
+    }).clone().catch((err) => {console.log(err)}
+    )
+}
 
   static excluirRota = async (req, res) => {
     const id = req.params.id;

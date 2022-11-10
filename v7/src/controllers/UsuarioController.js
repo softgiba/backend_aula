@@ -55,7 +55,7 @@ class UsuarioController {
       } else {
         res.status(500).send({ message: err.message })
       }
-    })
+    }).clone().catch((err) => {console.log(err)})
   }
 
   

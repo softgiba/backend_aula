@@ -4,8 +4,6 @@ import app from './src/app.js' // importando apps
 import * as dotenv from 'dotenv'; // necessário para leitura do arquivo de variáveis
 import cors from 'cors';
 import swaggerOptions from './src/docs/head.js'; // importando configurações do swagger
-import jwt from 'jsonwebtoken'; // para autenticação com JWT
-import fetch from 'node-fetch'; // para requisições http
 
 dotenv.config()
 

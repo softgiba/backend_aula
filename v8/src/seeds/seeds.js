@@ -4,6 +4,7 @@ import Unidade from '../models/Unidade.js';
 import Grupo from '../models/Grupo.js';
 import Usuario from '../models/Usuario.js';
 import Rota from '../models/Rota.js';
+import bcrypt from 'bcryptjs';
 
 // estabelecendo e testando a conexão
 db.on("error", console.log.bind(console, "Conexão com o banco falhou!"));
@@ -12,7 +13,7 @@ db.once("open", () => {
 });
 
 // quantidade de unidades, rotas e grupos a serem gerados
-let qtd = 100;
+let qtd = 20;
 let subdocs = qtd * 0.05;
 
 /* 
@@ -22,7 +23,6 @@ let subdocs = qtd * 0.05;
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
-
 
 //eliminando as rotas existentes
 await Unidade.deleteMany();
@@ -48,20 +48,18 @@ seedUnidades(qtd);
 await Unidade.collection.insertMany(unidades);
 console.log(unidades.length + ' Unidades inseridas!');
 
-
 // função para passar 10% dos itens do array unidades para cada grupo no array grupos
 const unidades_grupos = [];
 function seedUnidadesGrupos() {
     // limpar array unidades_grupos
     unidades_grupos.length = 0;
     for (let i = 0; i < (subdocs); i++) {
-        unidades_grupos.push(unidades[ Math.floor(Math.random() * unidades.length) ]);
+        unidades_grupos.push(unidades[Math.floor(Math.random() * unidades.length)]);
         unidades_grupos.sort();
         // console.log(unidades_grupos);
     }
     return unidades_grupos
 };
-
 
 /* 
 * Populando o banco de dados com dados falsos para testes de rotas
@@ -94,7 +92,6 @@ seedRotas(qtd);
 // await Rota.collection.insertMany(rotas);
 console.log(rotas.length + ' Rotas inseridas!');
 
-
 // função para passar 10% dos itens do array rotas para grupo no array de grupos
 const rotas_grupos = [];
 function seedRotasGrupos() {
@@ -124,7 +121,6 @@ function seedGrupos(qtdgrupos) {
         // console.log('Grupo ' + i + ' inserido!');
     }
     return grupos;
-
 }
 
 seedGrupos(qtd);
@@ -143,7 +139,6 @@ function seedGruposGrupos() {
     return grupos_grupos;
 };
 
-
 // Populando o banco de dados com dados falsos para testes de grupos
 //eliminando os grupos existentes
 await Usuario.deleteMany();
@@ -154,7 +149,7 @@ function seedUsuario(qtdusuarios) {
         {
             nome: faker.company.companyName(),
             email: getRandomInt(100000000) + faker.internet.email(),
-            senha: faker.internet.password(),
+            senha: senhaHash(),
             ativo: faker.random.boolean(),
             diretorio_foto: faker.image.avatar(),
             unidades: seedUnidadesGrupos(),
@@ -165,30 +160,17 @@ function seedUsuario(qtdusuarios) {
         // console.log('Usuários ' + i + ' inseridos!');
     }
     return usuarios;
-
 }
 
 seedUsuario(qtd);
 await Usuario.collection.insertMany(usuarios);
 console.log(usuarios.length + ' Usuarios inseridos!');
 
+// função para encrytar senha usando bcryptjs
 
-
+function senhaHash() {
+    return bcrypt.hashSync('123', 8);
+}
 
 //Deligando a conexão com o banco de dados com mensagem de sucesso ou de erro
 db.close((err) => { err ? console.log(err) : console.log('Conexão com o banco encerrada!') });
-
-
-
-
-/* 
-
-
-*/
-
-
-
-
-
-
-

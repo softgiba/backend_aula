@@ -60,9 +60,8 @@ class GrupoController {
       } else {
         res.status(500).send({ message: err.message })
       }
-    })
+    }).clone().catch((err) => {console.log(err)})
   }
-
 
   static excluirGrupo = async (req, res) => {
     const id = req.params.id;

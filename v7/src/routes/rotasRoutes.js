@@ -19,6 +19,7 @@ router
   .get("/rotas/:id", RotaController.listarRotaPorId)
   .post("/rotas", RotaController.cadastrarRota)
   .put("/rotas/:id", RotaController.atualizarRota)
+  .patch("/rotas/:id", RotaController.atualizarRota)
   .delete("/rotas/:id", RotaController.excluirRota)
 
 /* A comment. */

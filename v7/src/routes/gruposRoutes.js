@@ -38,8 +38,8 @@ router
   .get("/grupos/:id", GrupoController.listarGrupoPorId)
   .post("/grupos", GrupoController.cadastrarGrupo)
   .put("/grupos/:id", GrupoController.atualizarGrupo)
-  .delete("/grupos/:id", GrupoController.excluirGrupo)
   .patch("/grupos/:id", GrupoController.atualizarGrupo)
+  .delete("/grupos/:id", GrupoController.excluirGrupo)
 
 /* A comment. */
 export default router;

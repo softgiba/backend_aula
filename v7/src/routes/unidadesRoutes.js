@@ -19,6 +19,7 @@ router
   .get("/unidades/:id", UnidadeController.listarUnidadePorId)
   .post("/unidades", UnidadeController.cadastrarUnidade)
   .put("/unidades/:id", UnidadeController.atualizarUnidade)
+  .patch("/unidades/:id", UnidadeController.atualizarUnidade)
   .delete("/unidades/:id", UnidadeController.excluirUnidade)
 
 /* A comment. */

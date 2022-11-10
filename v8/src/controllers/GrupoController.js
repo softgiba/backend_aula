@@ -16,8 +16,6 @@ class GrupoController {
         let grupo = await grupos.paginate({}, options);
         let gpo = JSON.parse(JSON.stringify(grupo));
 
-        console.log(grupo);
-        console.log(gpo.docs);
         // iterando para recuperar os dados de cada unidade cujo ID está cadastrado no grupo
         for (let i = 0; i < gpo.docs.length; i++) {
           for (let j = 0; j < gpo.docs[i].unidades; j++) {
