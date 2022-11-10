@@ -1,9 +1,4 @@
 # root/
-deprecated/
-v7/
+deprecated
+v7
 *.env
-
-# v7 
-v7/node_modules
-v7/.env
-v7/*.env
