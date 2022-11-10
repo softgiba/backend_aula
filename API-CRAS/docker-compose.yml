@@ -1,0 +1,9 @@
+# criar um container docker-compose para o mongodb
+version: '2.0'
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data_mongodb:/data/db

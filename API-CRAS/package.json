@@ -1,0 +1,45 @@
+{
+  "name": "v4",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "seed": "node src/seeds/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.1.0",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "cross-fetch": "^3.1.5",
+    "cypress": "^10.11.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-paginate": "^1.0.2",
+    "express-validator": "^6.14.2",
+    "faker-br": "^0.4.1",
+    "intellisense": "^0.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-simple": "^0.5.6",
+    "mongoose": "^6.7.0",
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-paginate-v2": "^1.7.1",
+    "node-fetch": "^3.2.10",
+    "npm-install-all": "^1.1.21",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0",
+    "yamljs": "^0.3.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "Faker": "^0.7.2",
+    "nodemon": "^2.0.20"
+  }
+}

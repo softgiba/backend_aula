@@ -1,0 +1,4 @@
+node_modules/
+data_mongodb/
+src/config/auth.js
+.env
