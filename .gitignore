@@ -1,5 +1,6 @@
 # root/
 deprecated
+v7
 *.env
 
 # v7 
