@@ -1,6 +1,6 @@
 import express from "express";
 import RotaController from "../controllers/RotaController.js";
-
+import AuthMiddleware from "../middlewares/AuthMiddleware.js";
 const router = express.Router();
 
 /**
@@ -15,12 +15,12 @@ const router = express.Router();
  */
 
 router
-  .get("/rotas", RotaController.listarRotas)
-  .get("/rotas/:id", RotaController.listarRotaPorId)
-  .post("/rotas", RotaController.cadastrarRota)
-  .put("/rotas/:id", RotaController.atualizarRota)
-  .patch("/rotas/:id", RotaController.atualizarRota)
-  .delete("/rotas/:id", RotaController.excluirRota)
+  .get("/rotas", AuthMiddleware, RotaController.listarRotas)
+  .get("/rotas/:id", AuthMiddleware, RotaController.listarRotaPorId)
+  .post("/rotas", AuthMiddleware, RotaController.cadastrarRota)
+  .put("/rotas/:id", AuthMiddleware, RotaController.atualizarRota)
+  .patch("/rotas/:id", AuthMiddleware, RotaController.atualizarRota)
+  .delete("/rotas/:id", AuthMiddleware, RotaController.excluirRota)
 
 /* A comment. */
 export default router;

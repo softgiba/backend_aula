@@ -3,6 +3,7 @@ import grupos from "./gruposRoutes.js";
 import unidades from "./unidadesRoutes.js";
 import rotas from "./rotasRoutes.js";
 import usuarios from "./usuariosRoutes.js";
+import login from "./loginRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((rep, res) => {
@@ -14,7 +15,8 @@ const routes = (app) => {
         grupos,
         unidades,
         rotas,
-        usuarios
+        usuarios,
+        login
     )
 }
 

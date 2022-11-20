@@ -1,5 +1,6 @@
 import express from "express";
 import GrupoController from "../controllers/GrupoController.js";
+import AuthMiddleware from "../middlewares/AuthMiddleware.js";
 
 const router = express.Router();
 
@@ -34,12 +35,12 @@ const router = express.Router();
 */
 
 router
-  .get("/grupos", GrupoController.listarGrupos)
-  .get("/grupos/:id", GrupoController.listarGrupoPorId)
-  .post("/grupos", GrupoController.cadastrarGrupo)
-  .put("/grupos/:id", GrupoController.atualizarGrupo)
-  .patch("/grupos/:id", GrupoController.atualizarGrupo)
-  .delete("/grupos/:id", GrupoController.excluirGrupo)
+  .get("/grupos", AuthMiddleware, GrupoController.listarGrupos)
+  .get("/grupos/:id", AuthMiddleware, GrupoController.listarGrupoPorId)
+  .post("/grupos", AuthMiddleware, GrupoController.cadastrarGrupo)
+  .put("/grupos/:id", AuthMiddleware, GrupoController.atualizarGrupo)
+  .patch("/grupos/:id", AuthMiddleware, GrupoController.atualizarGrupo)
+  .delete("/grupos/:id", AuthMiddleware, GrupoController.excluirGrupo)
 
 /* A comment. */
 export default router;

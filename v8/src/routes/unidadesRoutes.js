@@ -1,6 +1,6 @@
 import express from "express";
 import UnidadeController from "../controllers/UnidadeController.js";
-
+import AuthMiddleware from "../middlewares/AuthMiddleware.js";
 const router = express.Router();
 
 /**
@@ -15,12 +15,12 @@ const router = express.Router();
  */
 
 router
-  .get("/unidades", UnidadeController.listarUnidades)
-  .get("/unidades/:id", UnidadeController.listarUnidadePorId)
-  .post("/unidades", UnidadeController.cadastrarUnidade)
-  .put("/unidades/:id", UnidadeController.atualizarUnidade)
-  .patch("/unidades/:id", UnidadeController.atualizarUnidade)
-  .delete("/unidades/:id", UnidadeController.excluirUnidade)
+  .get("/unidades", AuthMiddleware, UnidadeController.listarUnidades)
+  .get("/unidades/:id", AuthMiddleware, UnidadeController.listarUnidadePorId)
+  .post("/unidades", AuthMiddleware, UnidadeController.cadastrarUnidade)
+  .put("/unidades/:id", AuthMiddleware, UnidadeController.atualizarUnidade)
+  .patch("/unidades/:id", AuthMiddleware, UnidadeController.atualizarUnidade)
+  .delete("/unidades/:id", AuthMiddleware, UnidadeController.excluirUnidade)
 
 /* A comment. */
 export default router;

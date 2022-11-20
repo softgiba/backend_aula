@@ -1,6 +1,6 @@
 import express from "express";
 import UsuarioController from "../controllers/UsuarioController.js";
-
+import AuthMiddleware from "../middlewares/AuthMiddleware.js";
 const router = express.Router();
 
 /**
@@ -15,13 +15,12 @@ const router = express.Router();
  */
 
 router
-  .get("/usuarios", UsuarioController.listarUsuarios)
-  .get("/usuarios/busca", UsuarioController.listarUsuarioPorNome)
-  .get("/usuarios/:id", UsuarioController.listarUsuarioPorId)
-  .post("/usuarios", UsuarioController.cadastrarUsuario)
-  .put("/usuarios/:id", UsuarioController.atualizarUsuario)
-  .patch("/usuarios/:id", UsuarioController.atualizarUsuario)
-  .delete("/usuarios/:id", UsuarioController.excluirUsuario)
+  .get("/usuarios", AuthMiddleware, UsuarioController.listarUsuarios)
+  .get("/usuarios/:id", AuthMiddleware, UsuarioController.listarUsuarioPorId)
+  .post("/usuarios", AuthMiddleware, UsuarioController.cadastrarUsuario)
+  .put("/usuarios/:id", AuthMiddleware, UsuarioController.atualizarUsuario)
+  .patch("/usuarios/:id", AuthMiddleware, UsuarioController.atualizarUsuario)
+  .delete("/usuarios/:id", AuthMiddleware, UsuarioController.excluirUsuario)
 
 /* A comment. */
 export default router;
