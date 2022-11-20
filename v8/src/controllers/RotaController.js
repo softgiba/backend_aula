@@ -1,24 +1,26 @@
 import rotas from "../models/Rota.js";
-
+import PermissaoMidleware from '../middlewares/PermissaoMidleware.js';
 class RotaController {
   static listarRotas = async (req, res) => {
+    const nome = req.query.nome;
+    const { page, perPage } = req.query;
+    const options = { // limitar a quantidade máxima por requisição
+      nome: (nome),
+      page: parseInt(page) || 1,
+      limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
+    };
     try {
       return await PermissaoMidleware.verificarPermissao('rotas', 'get', req, res, async () => {
-        const nome = req.query.nome;
-        const { page, perPage } = req.query;
-        const options = { // limitar a quantidade máxima por requisição
-          nome: (nome),
-          page: parseInt(page) || 1,
-          limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
-        };
         if (!nome) {
+          // retorno da busca desejada
           const rota = await rotas.paginate({}, options);
           return res.json(rota);
         } else {
-          const rota = await rotas.paginate({ nome: new RegExp(nome, 'i') }, options);
+          const rota = await rotas.paginate({ rota: new RegExp(nome, 'i') }, options);
           return res.json(rota);
         }
       })
+
     } catch (err) {
       // console.error(err);
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
@@ -28,15 +30,13 @@ class RotaController {
   static listarRotaPorId = async (req, res) => {
     try {
       return await PermissaoMidleware.verificarPermissao('rotas', 'get', req, res, async () => {
-        const id = req.params.id;
-        await rotas.findById(id)
-          .exec((err, rotas) => {
-            if (err) {
-              return res.status(500).json({ error: true, code: 500, message: "Id da rota não localizado." })
-            } else {
-              res.status(200).send(rotas);
-            }
-          })
+        await rotas.findById(req.params.id).exec((err, rotas) => {
+          if (err) {
+            return res.status(500).json({ error: true, code: 500, message: "Id da rota não localizado." })
+          } else {
+            res.status(200).send(rotas);
+          }
+        })
       })
     } catch (err) {
       // console.error(err);
@@ -48,6 +48,13 @@ class RotaController {
     try {
       return await PermissaoMidleware.verificarPermissao('rotas', 'post', req, res, async () => {
         let rota = new rotas(req.body);
+
+        // checar se a rota já existe
+        const rotaExiste = await rotas.findOne({ rota: rota.rota });
+        if (rotaExiste) {
+          return res.status(400).json({ error: true, code: 400, message: "Rota já cadastrada." })
+        }
+        
         await rota.save((err) => {
           if (err) {
             return res.status(500).json({ error: true, code: 500, message: "Erro nos dados, confira e repita" })
@@ -76,7 +83,7 @@ class RotaController {
         )
       })
     } catch (err) {
-      // console.error(err);
+      console.error(err);
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
     }
   }

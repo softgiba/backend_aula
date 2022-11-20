@@ -123,17 +123,34 @@ await Usuario.deleteMany();
 // usuarios que serão inseridos no banco de dados
 const usuarios = [];
 
+
+// remover do array grupos a chave rotas e a chave unidades
+function removerChaves(obj) {
+    for (let i = 0; i < obj.length; i++) {
+        delete obj[i].rotas;
+        delete obj[i].unidades;
+    }
+    return obj;
+}
+
+
 function seedUsuario(qtdusuarios) {
     for (let i = 1; i <= qtdusuarios; i++) {
+       let nome = faker.name.firstName();
+       let nome_meio = faker.name.lastName();
+       let sobrenome = faker.name.lastName();
+       let email = nome + '.' + sobrenome + '@' + "gmail.com";
+
         const seedUsuarios =
         {
-            nome: faker.company.companyName(),
-            email: getRandomInt(100000000) + faker.internet.email(),
+            nome: nome +' '+ nome_meio + ' ' + sobrenome,
+            email: email.toLowerCase(),
             senha: senhaHash(),
-            ativo: faker.random.boolean(),
+            ativo: true,
             link_foto: faker.image.avatar(),
             rotas: rotas,
-            grupos: grupos
+            grupos: removerChaves(grupos)
+
         }
         usuarios.push(seedUsuarios);
         // console.log('Usuários ' + i + ' inseridos!');

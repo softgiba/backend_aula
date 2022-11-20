@@ -10,6 +10,8 @@ const usuarioSchema = new mongoose.Schema({
     senha: { type: String, minlength: 8, trim: true, required: true, select: false },
     link_foto: { type: String, trim: true },
     ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200, default: false },
+
+    // registrar cada rota e sua configuração, pois o usuário terá acesso personalizado para cada rota
     rotas: [
         {
             _id: { type: mongoose.Schema.Types.ObjectId, ref: 'rotas' },
@@ -22,6 +24,8 @@ const usuarioSchema = new mongoose.Schema({
             verbo_post: { type: Boolean }
         }
     ],
+
+    //registrar só este dados básicos do grupo, o usuário herdará as permissões do grupo
     grupos: [
         {
             _id: { type: mongoose.Schema.Types.ObjectId, ref: 'grupos' },
