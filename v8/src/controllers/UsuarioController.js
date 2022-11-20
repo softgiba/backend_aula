@@ -5,21 +5,21 @@ import ValidadorMidleware from '../middlewares/ValidadorMidleware.js';
 class UsuarioController {
   // GET - listar Usuarios por nome com paginação 
   static listarUsuarios = async (req, res) => {
-    const nome = req.query.nome;
-    const { page, perPage } = req.query;
-    const options = { // limitar a quantidade máxima por requisição
-      nome: (nome),
-      page: parseInt(page) || 1,
-      limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
-    };
     try {
       return await PermissaoMidleware.verificarPermissao('usuarios', 'get', req, res, async () => {
+        const nome = req.query.nome;
+        const { page, perPage } = req.query;
+        const options = { // limitar a quantidade máxima por requisição
+          nome: (nome),
+          page: parseInt(page) || 1,
+          limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
+        };
+
         if (!nome) {
           // retorno da busca desejada
           const usuario = await usuarios.paginate({}, options);
           return res.json(usuario);
         } else {
-          // return await PermissaoMidleware.verificarPermissao('usuarios', 'get', req, res, async () => {
           // retorno da busca desejada
           const usuario = await usuarios.paginate({ nome: new RegExp(nome, 'i') }, options);
           return res.json(usuario);

@@ -1,16 +1,17 @@
 import rotas from "../models/Rota.js";
 import PermissaoMidleware from '../middlewares/PermissaoMidleware.js';
+import ValidadorMidleware from '../middlewares/ValidadorMidleware.js';
 class RotaController {
   static listarRotas = async (req, res) => {
-    const nome = req.query.nome;
-    const { page, perPage } = req.query;
-    const options = { // limitar a quantidade máxima por requisição
-      nome: (nome),
-      page: parseInt(page) || 1,
-      limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
-    };
     try {
       return await PermissaoMidleware.verificarPermissao('rotas', 'get', req, res, async () => {
+        const nome = req.query.nome;
+        const { page, perPage } = req.query;
+        const options = { // limitar a quantidade máxima por requisição
+          nome: (nome),
+          page: parseInt(page) || 1,
+          limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
+        };
         if (!nome) {
           // retorno da busca desejada
           const rota = await rotas.paginate({}, options);
@@ -20,7 +21,6 @@ class RotaController {
           return res.json(rota);
         }
       })
-
     } catch (err) {
       // console.error(err);
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
@@ -54,7 +54,7 @@ class RotaController {
         if (rotaExiste) {
           return res.status(400).json({ error: true, code: 400, message: "Rota já cadastrada." })
         }
-        
+
         await rota.save((err) => {
           if (err) {
             return res.status(500).json({ error: true, code: 500, message: "Erro nos dados, confira e repita" })
