@@ -4,7 +4,7 @@ import rotas from "../models/Rota.js";
 import PermissaoMidleware from '../middlewares/PermissaoMidleware.js';
 import ValidadorMidleware from '../middlewares/ValidadorMidleware.js';
 
-// classe para controlar operações de grupos
+
 class GrupoController {
   static listarGrupos = async (req, res) => {
     try {
