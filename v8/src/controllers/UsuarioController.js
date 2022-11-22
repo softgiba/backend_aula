@@ -1,4 +1,6 @@
 import usuarios from "../models/Usuario.js";
+import grupos from "../models/Grupo.js";
+import unidades from "../models/Unidade.js";
 import bcrypt from "bcryptjs";
 import PermissaoMidleware from '../middlewares/PermissaoMidleware.js';
 import ValidadorMidleware from '../middlewares/ValidadorMidleware.js';
@@ -14,12 +16,12 @@ class UsuarioController {
           page: parseInt(page) || 1,
           limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
         };
-
         if (!nome) {
           // retorno da busca desejada
           const usuario = await usuarios.paginate({}, options);
           return res.json(usuario);
         } else {
+          // return await PermissaoMidleware.verificarPermissao('usuarios', 'get', req, res, async () => {
           // retorno da busca desejada
           const usuario = await usuarios.paginate({ nome: new RegExp(nome, 'i') }, options);
           return res.json(usuario);
@@ -40,14 +42,23 @@ class UsuarioController {
       return await PermissaoMidleware.verificarPermissao('usuarios', 'get', req, res, async () => {
         // retorno da busca desejada
         const id = req.params.id;
-        usuarios.findById(id).exec((err, usuarios) => {
+
+        // carregar o usuario pelo id e recuperar o nome do grupo
+        usuarios.findById(id, async (err, usuario) => {
           if (err) {
-            return res.status(400).json({ error: true, code: 400, message: "ID inválido" })
+            return res.status(400).json({ error: true, code: 400, message: "ID inválido ou não encontrado" })
           }
-          if (!usuarios) {
+          if (!usuario) {
             return res.status(404).json({ code: 404, message: "Usuário não encontrado" })
           } else {
-            return res.status(200).send(usuarios);
+            let user = JSON.parse(JSON.stringify(usuario));
+
+            // carregar o nome do grupo e das unidades
+            user.grupos = await grupos.find({ _id: { $in: user.grupos } }).lean();
+            for (let i = 0; i < user.grupos.length; i++) {
+              user.grupos[i].unidades = await unidades.find({ _id: { $in: user.grupos[i].unidades } });
+            }
+            return res.status(200).send(user)
           }
         })
       })
@@ -126,22 +137,17 @@ class UsuarioController {
     // verificar pemissão para para fazer post na rota /usuarios 
     try {
       return await PermissaoMidleware.verificarPermissao('usuarios', 'post', req, res, async () => {
-
         let usuario = new usuarios(req.body); // criando um novo usuario
-
         // checar se usuario já existe pelo email, existino para o cadastro aqui
         let userExist = await usuarios.findOne({ email: req.body.email });
         if (userExist) {
           return res.status(400).json({ code: 400, message: "E-mail já cadastrado!" })
         }
-
         let senhaHash = bcrypt.hashSync(usuario.senha, 8); // criptografar a senha
-
         usuario.senha = senhaHash;  // atribuindo a senha criptografada ao usuario
-
         usuario.save((err) => {
           if (err) {
-            console.log(err);
+            // console.log(err);
             return res.status(500).json({ error: true, code: 500, message: "Erro nos dados, confira e repita" })
           } else {
             res.status(201).send(usuario.toJSON())
@@ -149,7 +155,7 @@ class UsuarioController {
         })
       })
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
     }
   }

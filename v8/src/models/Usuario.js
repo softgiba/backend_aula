@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 import mongoosePaginate from 'mongoose-paginate';
 
 const usuarioSchema = new mongoose.Schema({
-    nome: { type: String, required: true, minlength: 4, maxlength: 200 },
+    nome: { type: String,  minlength: 4, maxlength: 200, required: [true, 'Nome é obrigatório.'] },
     email: {
-        type: String, required: true, unique: true,
+        type: String, required: true, unique: true, lowercase: true, trim: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     senha: { type: String, minlength: 8, trim: true, required: true, select: false },
@@ -28,10 +28,7 @@ const usuarioSchema = new mongoose.Schema({
     //registrar só este dados básicos do grupo, o usuário herdará as permissões do grupo
     grupos: [
         {
-            _id: { type: mongoose.Schema.Types.ObjectId, ref: 'grupos' },
-            nome: { type: String, required: true, minlength: 4, maxlength: 200, trim: true },
-            descricao: { type: String, required: true, minlength: 4, maxlength: 200 },
-            ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 },
+            _id: { type: mongoose.Schema.Types.ObjectId, ref: 'grupos' }
         }
     ]
 },

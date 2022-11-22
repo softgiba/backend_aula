@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Unidade from "./Unidade.js"; 
 import mongoosePaginate from 'mongoose-paginate';
 
 const grupoSchema = new mongoose.Schema(
@@ -9,9 +10,7 @@ const grupoSchema = new mongoose.Schema(
         ativo: { type: Boolean, required: true, minlength: 4, maxlength: 200 },
         unidades: [
             {
-                _id: { type: mongoose.Schema.Types.ObjectId, ref: 'grupos' },
-                nome: { type: String, required: true, minlength: 4, maxlength: 200 },
-                localidade: { type: String, required: true, minlength: 4, maxlength: 200 },
+                _id: { type: mongoose.Schema.Types.ObjectId, ref: 'grupos' }
             }
         ],
         rotas: [
@@ -34,5 +33,12 @@ grupoSchema.plugin(mongoosePaginate);
 
 const grupos = mongoose.model('grupos', grupoSchema);
 
-// 
+
+// método para devolver as unidades do grupo
+grupoSchema.methods.getUnidades = async function () {
+    const grupo = this;
+    const unidades = await Unidade.find({ _id: { $in: grupo.unidades } });
+    return unidades;
+}
+
 export default grupos;

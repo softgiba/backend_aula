@@ -24,7 +24,7 @@ function getRandomInt(max) {
 await Unidade.deleteMany();
 
 // array de unidades do negócio
-const unidades_array = ['Matriz', 'Filial 1', 'Filial 2', ' Filial 3']
+const unidades_array = ['Matriz', 'Filial 1', 'Filial 2']
 
 function getUnidadesNome(i) {
     return unidades_array[i].toString();
@@ -37,7 +37,7 @@ function seedUnidades(qtdunidades) {
     for (let i = 0; i < qtdunidades; i++) {
         const unidade = {
             nome: getUnidadesNome(i),
-            localidade: faker.address.city(),
+            localidade: faker.address.city() + ' - ' + faker.address.state(),
             ativo: true
         }
         unidades.push(unidade);
@@ -86,12 +86,21 @@ await Rota.collection.insertMany(rotas);
 console.log(rotas.length + ' Rotas inseridas!');
 
 // ---------------------------------------------------------------
+// Remover todas as chaves de um array de objetos unidades excepto o id
+function removerChavesUnidades(obj) {
+    for (let i = 0; i < obj.length; i++) {
+        delete obj[i].nome
+        delete obj[i].localidade;
+        delete obj[i].ativo;
+    }
+    return obj;
+}
 //eliminando os grupos existentes
 await Grupo.deleteMany();
 const grupos = [];
 
 // função para retornar o nome de alguns grupos fictícios
-const grupos_array = ['gerente', 'supervisor', 'operador', 'administrador', 'visitante', 'desenvolvedor']
+const grupos_array = ['administrador', 'gerente', 'operador']
 
 function getGrupoName(i) {
     return grupos_array[i].toString();
@@ -103,7 +112,7 @@ function seedGrupos(qtdgrupos) {
             nome: getGrupoName(i),
             descricao: faker.lorem.sentence(),
             ativo: true,
-            unidades: unidades,
+            unidades: removerChavesUnidades(unidades),
             rotas: rotas
         }
         grupos.push(seedGrupos);
@@ -124,9 +133,12 @@ await Usuario.deleteMany();
 const usuarios = [];
 
 
-// remover do array grupos a chave rotas e a chave unidades
+// Remover todas as chaves de um array de objetos excepto o id
 function removerChaves(obj) {
     for (let i = 0; i < obj.length; i++) {
+        delete obj[i].nome
+        delete obj[i].descricao;
+        delete obj[i].ativo;
         delete obj[i].rotas;
         delete obj[i].unidades;
     }
@@ -136,14 +148,14 @@ function removerChaves(obj) {
 
 function seedUsuario(qtdusuarios) {
     for (let i = 1; i <= qtdusuarios; i++) {
-       let nome = faker.name.firstName();
-       let nome_meio = faker.name.lastName();
-       let sobrenome = faker.name.lastName();
-       let email = nome + '.' + sobrenome + '@' + "gmail.com";
+        let nome = faker.name.firstName();
+        let nome_meio = faker.name.lastName();
+        let sobrenome = faker.name.lastName();
+        let email = nome + '.' + sobrenome + '@' + "gmail.com";
 
         const seedUsuarios =
         {
-            nome: nome +' '+ nome_meio + ' ' + sobrenome,
+            nome: nome + ' ' + nome_meio + ' ' + sobrenome,
             email: email.toLowerCase(),
             senha: senhaHash(),
             ativo: true,

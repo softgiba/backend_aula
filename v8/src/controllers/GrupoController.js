@@ -4,7 +4,7 @@ import rotas from "../models/Rota.js";
 import PermissaoMidleware from '../middlewares/PermissaoMidleware.js';
 import ValidadorMidleware from '../middlewares/ValidadorMidleware.js';
 
-// classe para controlar operações de grupos
+// classe para controlar operações 
 class GrupoController {
   static listarGrupos = async (req, res) => {
     try {
@@ -21,14 +21,8 @@ class GrupoController {
 
           // iterando para recuperar os dados de cada unidade cujo ID está cadastrado no grupo
           for (let i = 0; i < gpo.docs.length; i++) {
-            for (let j = 0; j < gpo.docs[i].unidades; j++) {
+            for (let j = 0; j < gpo.docs[i].unidades.length; j++) {
               gpo.docs[i].unidades[j] = await unidades.findById(gpo.docs[i].unidades[j]);
-            }
-          }
-          // iterando para recuperar os dados de cada rota cujo ID está cadastrado no grupo
-          for (let i = 0; i < gpo.docs.length; i++) {
-            for (let j = 0; j < gpo.docs[i].rotas.length; j++) {
-              gpo.docs[i].rotas[j] = await rotas.findById(gpo.docs[i].rotas[j]);
             }
           }
           res.status(200).send(gpo);
@@ -51,24 +45,42 @@ class GrupoController {
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
     }
   }
-  
-  
+
   static listarGrupoPorId = async (req, res) => {
     try {
       return await PermissaoMidleware.verificarPermissao('grupos', 'get', req, res, async () => {
         const id = req.params.id;
-        await grupos.findById(id, (err, grupos) => {
-          unidades.findById(grupos.unidades, (err, unidade) => {
-            if (!err) {
-              for (let i = 0; i < grupos.unidades.length; i++) {
-                grupos.unidades[i] = unidade;
-              }
-              res.status(200).send(grupos);
-            } else {
-              res.status(400).send({ message: `${err.message} - Id do grupo não localizado.` })
-            }
-          })
-        }).lean().clone().catch((err) => { console.log(err) })
+        // carregar o grupo pelo ID e recuperar os dados de unidade
+        grupos.findById(id, async (err, grupo) => {
+          if (err) {
+            return res.status(400).json({ error: true, code: 400, message: "ID inválido ou não encontrado" })
+          }
+          if (!grupo) {
+            return res.status(404).json({ error: true, code: 404, message: "Grupo não encontrado" })
+          }
+          let gpo = JSON.parse(JSON.stringify(grupo));
+          gpo.unidades = await unidades.find({ _id: { $in: gpo.unidades } }).lean();
+
+
+          // for (let i = 0; i < gpo.unidades.length; i++) {
+          //   gpo.unidades[i] = await unidades.findById(gpo.unidades[i]);
+          // }
+
+          
+          res.status(200).send(gpo);
+          /*  Rotas é gravada dentro do grupo, podendo ter configuração de acesso aos 
+              verbos HTTP diferentes do cadastro das rotas, que neste caso é global. 
+              Portanto se em uma rota o verbo get estiver liberado, E mas no grupo o 
+              verbo get estiver bloqueado, o acesso será negado. Em casos que o verbo 
+              get estiver liberado no grupo, mas bloqueado na rota, o acesso será negado, 
+              por ser uma regra hierárquica de acesso maior para menor. Por isso, 
+              é necessário verificar se o verbo está liberado no grupo e na rota. 
+              Em caso de conflitos, prevalencendo a rota. Por essa razão não se carrega
+              as configurações de acesso do cadastro das rotas, mas sim verifica-se e pelo 
+              middleware de permissão e prioriza conforme a hierarquia de acesso descrita aqui.
+          */
+        }
+        )
       })
     } catch (err) {
       // console.error(err);
@@ -93,7 +105,7 @@ class GrupoController {
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
     }
   }
-  
+
   static atualizarGrupo = async (req, res) => {
     try {
       return await PermissaoMidleware.verificarPermissao('grupos', 'get', req, res, async () => {
@@ -111,8 +123,6 @@ class GrupoController {
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
     }
   }
-
-
 
   static excluirGrupo = async (req, res) => {
     try {

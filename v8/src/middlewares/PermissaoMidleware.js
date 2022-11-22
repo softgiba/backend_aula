@@ -31,6 +31,14 @@ class PermissaoMidleware {
             return res.status(401).json({ code: 401, message: "Usuário inativo!" })
         }
 
+        // verificar se a rota passada está ativa está ativa
+
+
+
+        // verificar pode pode acessar a rota pelo grupo de permissão
+        
+
+
         // carrega somente as rotas que o usuário tem permissão
         for (let i = 0; i < usuarioPefil.rotas.length; i++) {
             if (usuarioPefil.rotas[i].rota === rota_acessada) {
