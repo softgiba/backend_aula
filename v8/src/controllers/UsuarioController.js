@@ -14,20 +14,39 @@ class UsuarioController {
         const options = { // limitar a quantidade máxima por requisição
           nome: (nome),
           page: parseInt(page) || 1,
-          limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 10
+          limit: parseInt(perPage) > 3 ? 3 : parseInt(perPage) || 3
         };
         if (!nome) {
           // retorno da busca desejada
           const usuario = await usuarios.paginate({}, options);
-          return res.json(usuario);
+          let user = JSON.parse(JSON.stringify(usuario));
+          user.grupos = await grupos.find({ _id: { $in: user.grupos } }).lean();
+
+          // iterando para recuperar os dados de cada unidade cujo ID está cadastrado no grupo
+          for (let i = 0; i < user.docs.length; i++) {
+            user.docs[i].grupos = await grupos.find({ _id: { $in: user.docs[i].grupos } }).lean();
+            for (let j = 0; j < user.docs[i].grupos[j].unidades.length; j++) {
+              user.docs[i].grupos[j].unidades = await unidades.find({ _id: { $in: user.docs[i].grupos[j].unidades } }).lean();
+            }
+          }
+          return res.json(user);
+
         } else {
-          // return await PermissaoMidleware.verificarPermissao('usuarios', 'get', req, res, async () => {
           // retorno da busca desejada
           const usuario = await usuarios.paginate({ nome: new RegExp(nome, 'i') }, options);
-          return res.json(usuario);
+          let user = JSON.parse(JSON.stringify(usuario));
+          user.grupos = await grupos.find({ _id: { $in: user.grupos } }).lean();
+
+          // iterando para recuperar os dados de cada unidade cujo ID está cadastrado no grupo
+          for (let i = 0; i < user.docs.length; i++) {
+            user.docs[i].grupos = await grupos.find({ _id: { $in: user.docs[i].grupos } }).lean();
+            for (let j = 0; j < user.docs[i].grupos[j].unidades.length; j++) {
+              user.docs[i].grupos[j].unidades = await unidades.find({ _id: { $in: user.docs[i].grupos[j].unidades } }).lean();
+            }
+          }
+          return res.json(user);
         }
       })
-
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
@@ -52,12 +71,11 @@ class UsuarioController {
             return res.status(404).json({ code: 404, message: "Usuário não encontrado" })
           } else {
             let user = JSON.parse(JSON.stringify(usuario));
-
-            // carregar o nome do grupo e das unidades
             user.grupos = await grupos.find({ _id: { $in: user.grupos } }).lean();
             for (let i = 0; i < user.grupos.length; i++) {
-              user.grupos[i].unidades = await unidades.find({ _id: { $in: user.grupos[i].unidades } });
+              user.grupos[i].unidades = await unidades.find({ _id: { $in: user.grupos[i].unidades } }).lean();
             }
+
             return res.status(200).send(user)
           }
         })

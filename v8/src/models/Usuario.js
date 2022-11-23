@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import mongoosePaginate from 'mongoose-paginate';
 
 const usuarioSchema = new mongoose.Schema({
-    nome: { type: String,  minlength: 4, maxlength: 200, required: [true, 'Nome é obrigatório.'] },
+    nome: { type: String, minlength: 4, maxlength: 200, required: [true, 'Nome é obrigatório.'] },
     email: {
         type: String, required: true, unique: true, lowercase: true, trim: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/

@@ -24,7 +24,15 @@ function getRandomInt(max) {
 await Unidade.deleteMany();
 
 // array de unidades do negócio
-const unidades_array = ['Matriz', 'Filial 1', 'Filial 2']
+// const unidades_array = ['Matriz', 'Filial 1', 'Filial 2']
+const unidades_array = ['Matriz', 'Filial 1', 'Filial 2',
+    'Filial 3', 'Filial 4', 'Filial 5',
+    'Filial 6', 'Filial 7', 'Filial 8',
+    'Filial 9', 'Filial 10', 'Filial 11',
+    'Filial 12', 'Filial 13', 'Filial 14',
+    'Filial 15', 'Filial 16', 'Filial 17',
+    'Filial 18', 'Filial 19', 'Filial 20'
+]
 
 function getUnidadesNome(i) {
     return unidades_array[i].toString();
@@ -100,7 +108,19 @@ await Grupo.deleteMany();
 const grupos = [];
 
 // função para retornar o nome de alguns grupos fictícios
-const grupos_array = ['administrador', 'gerente', 'operador']
+// criar uma constante com 100 grupos diferentes
+const grupos_array = [
+    'Administrador', 'Gerente', 'Supervisor', 'Operador', 'Vendedor',
+    'Analista', 'Coordenador', 'Diretor', 'Presidente', 'Gerente de Vendas',
+    'Gerente de Marketing', 'Gerente de RH', 'Gerente de TI', 'Gerente de Finanças',
+    'Gerente de Compras', 'Gerente de Logística', 'Gerente de Produção', 'Gerente de Qualidade',
+    'Gerente de Segurança', 'Gerente de Manutenção', 'Gerente de Engenharia', 'Gerente de Projetos',
+    'Gerente de Operações', 'Gerente de Serviços', 'Gerente de Atendimento', 'Gerente de Suporte',
+    'Gerente de Suporte Técnico', 'Gerente de Suporte ao Cliente', 'Gerente de Suporte ao Usuário',
+    'Gerente de Suporte ao Usuário Final', 'Gerente de Suporte ao Cliente Final', 'Gerente de Suporte ao Cliente Interno',
+]
+
+// const grupos_array = ['administrador', 'gerente', 'operador', 'vendedor', 'cliente', 'fornecedor', 'transportadora', 'funcionario', 'visitante', 'outros']
 
 function getGrupoName(i) {
     return grupos_array[i].toString();

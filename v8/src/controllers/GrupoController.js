@@ -13,7 +13,7 @@ class GrupoController {
         const { page, perPage } = req.query;
         const options = { // limitar a quantidade máxima por requisição
           page: parseInt(page) || 1,
-          limit: parseInt(perPage) > 10 ? 10 : parseInt(perPage) || 5
+          limit: parseInt(perPage) > 3 ? 3 : parseInt(perPage) || 3
         };
         if (!nome) {
           let grupo = await grupos.paginate({}, options);
@@ -21,9 +21,7 @@ class GrupoController {
 
           // iterando para recuperar os dados de cada unidade cujo ID está cadastrado no grupo
           for (let i = 0; i < gpo.docs.length; i++) {
-            for (let j = 0; j < gpo.docs[i].unidades.length; j++) {
-              gpo.docs[i].unidades[j] = await unidades.findById(gpo.docs[i].unidades[j]);
-            }
+            gpo.docs[i].unidades = await unidades.find({ _id: { $in: gpo.docs[i].unidades } }).lean();
           }
           res.status(200).send(gpo);
 
@@ -31,11 +29,8 @@ class GrupoController {
         } else {
           const grupo = await grupos.paginate({ nome: new RegExp(nome, 'i') }, options);
           let gpo = JSON.parse(JSON.stringify(grupo));
-
           for (let i = 0; i < gpo.docs.length; i++) {
-            for (let j = 0; j < gpo.docs[i].unidades.length; j++) {
-              gpo.docs[i].unidades[j] = await unidades.findById(gpo.docs[i].unidades[j]);
-            }
+            gpo.docs[i].unidades = await unidades.find({ _id: { $in: gpo.docs[i].unidades } }).lean();
           }
           res.status(200).send(gpo);
         }
@@ -60,13 +55,6 @@ class GrupoController {
           }
           let gpo = JSON.parse(JSON.stringify(grupo));
           gpo.unidades = await unidades.find({ _id: { $in: gpo.unidades } }).lean();
-
-
-          // for (let i = 0; i < gpo.unidades.length; i++) {
-          //   gpo.unidades[i] = await unidades.findById(gpo.unidades[i]);
-          // }
-
-          
           res.status(200).send(gpo);
           /*  Rotas é gravada dentro do grupo, podendo ter configuração de acesso aos 
               verbos HTTP diferentes do cadastro das rotas, que neste caso é global. 
