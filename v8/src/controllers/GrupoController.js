@@ -43,7 +43,7 @@ class GrupoController {
 
   static listarGrupoPorId = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('grupos', 'get', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('grupos:id', 'get', req, res, async () => {
         const id = req.params.id;
         // carregar o grupo pelo ID e recuperar os dados de unidade
         grupos.findById(id, async (err, grupo) => {
@@ -96,7 +96,7 @@ class GrupoController {
 
   static atualizarGrupo = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('grupos', 'get', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('grupos:id', 'get', req, res, async () => {
         const id = req.params.id;
         await grupos.findByIdAndUpdate(id, { $set: req.body }, (err) => {
           if (!err) {
@@ -114,7 +114,7 @@ class GrupoController {
 
   static excluirGrupo = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('grupos', 'get', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('grupos:id', 'get', req, res, async () => {
         const id = req.params.id;
         await grupos.findByIdAndDelete(id, (err) => {
           if (!err) {

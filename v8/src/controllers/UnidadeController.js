@@ -30,7 +30,7 @@ class UnidadeController {
 
   static listarUnidadePorId = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('unidades', 'get', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('unidades:id', 'get', req, res, async () => {
         const id = req.params.id;
         unidades.findById(id, (err, unidades) => {
           if (err) {
@@ -66,7 +66,7 @@ class UnidadeController {
 
   static atualizarUnidade = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('unidades', 'patch', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('unidades:id', 'patch', req, res, async () => {
         const id = req.params.id;
         unidades.findByIdAndUpdate(id, { $set: req.body }, (err) => {
           if (!err) {
@@ -85,7 +85,7 @@ class UnidadeController {
   static excluirUnidade = async (req, res) => {
     // verificar pemissão para para fazer post na rota /usuarios 
     try {
-      return await PermissaoMidleware.verificarPermissao('unidades', 'delete', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('unidades:id', 'delete', req, res, async () => {
         const id = req.params.id;
 
         // verificar se a unidade existe

@@ -29,7 +29,7 @@ class RotaController {
 
   static listarRotaPorId = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('rotas', 'get', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('rotas:id', 'get', req, res, async () => {
         await rotas.findById(req.params.id).exec((err, rotas) => {
           if (err) {
             return res.status(500).json({ error: true, code: 500, message: "Id da rota não localizado." })
@@ -71,7 +71,7 @@ class RotaController {
 
   static atualizarRota = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('rotas', 'patch', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('rotas:id', 'patch', req, res, async () => {
         const id = req.params.id;
         await rotas.findOneAndUpdate(id, { $set: req.body }, (err) => {
           if (!err) {
@@ -90,7 +90,7 @@ class RotaController {
 
   static excluirRota = async (req, res) => {
     try {
-      return await PermissaoMidleware.verificarPermissao('rotas', 'patch', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('rotas:id', 'patch', req, res, async () => {
         const id = req.params.id;
         await rotas.findByIdAndDelete(id, (err) => {
           if (!err) {

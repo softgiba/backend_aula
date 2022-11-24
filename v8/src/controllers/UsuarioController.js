@@ -58,7 +58,7 @@ class UsuarioController {
     // verificar pemissão para para fazer GET na rota /usuarios 
     try {
       // parametros para PemissaoMidleware.verificarPermissao (ROTA, METODO, REQ, RES, CALLBACK)
-      return await PermissaoMidleware.verificarPermissao('usuarios', 'get', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('usuarios:id', 'get', req, res, async () => {
         // retorno da busca desejada
         const id = req.params.id;
 
@@ -90,7 +90,7 @@ class UsuarioController {
   static atualizarUsuario = async (req, res) => {
     // verificar pemissão para para fazer PATCH na rota /usuarios 
     try {
-      return await PermissaoMidleware.verificarPermissao('usuarios', 'patch', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('usuarios:id', 'patch', req, res, async () => {
         // operação desejada
         var id = req.params.id;
         var usuario = new usuarios(req.body);
@@ -119,7 +119,7 @@ class UsuarioController {
   static excluirUsuario = async (req, res) => {
     // verificar pemissão para para fazer PATCH na rota /usuarios 
     try {
-      return await PermissaoMidleware.verificarPermissao('usuarios', 'delete', req, res, async () => {
+      return await PermissaoMidleware.verificarPermissao('usuarios:id', 'delete', req, res, async () => {
         // Validação do ID a ser excluido
         const id = ValidadorMidleware.checaId(req.params.id);
         if (!id) {

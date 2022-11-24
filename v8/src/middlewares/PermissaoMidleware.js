@@ -32,6 +32,12 @@ class PermissaoMidleware {
         }
 
         // verificar se a rota passada está ativa está ativa
+    //     const rota_pretendida = usuarioPefil.perfis.rotas.find({rota: {rota_acessada}});
+
+    //     gpo.docs[i].unidades = await unidades.find({ _id: { $in: gpo.docs[i].unidades } }).lean();
+    // }
+
+    //     console.log(rota_pretendida);
 
 
 
