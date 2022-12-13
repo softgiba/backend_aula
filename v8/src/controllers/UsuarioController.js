@@ -81,7 +81,7 @@ class UsuarioController {
         })
       })
     } catch (err) {
-      // console.error(err);
+      // console.error(err);;
       return res.status(500).json({ error: true, code: 500, message: "Erro interno do Servidor" })
     }
   }
